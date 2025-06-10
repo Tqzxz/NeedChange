@@ -1,0 +1,8 @@
+
+
+
+Minimium Functionality:
+
+  1. Create an Robot body
+  2. Usr could send control command to Robot/ and Robot will response to it
+  3. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
