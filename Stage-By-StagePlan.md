@@ -3,35 +3,19 @@
 
 Current Goal Minimium Functionality:
 
-  1. Create an Robot body
+  1. Robot base that could move:
+
+   ztx:
+     轮足： 确定是用轮足，但是具体怎么整还没确定， 用一个两个还是几个， 放在什么样的位置 （ 或者考虑吧换一种轮子的类型， 麦克纳木轮， 但感觉有点花）
+     电机： 底座的驱动电机肯定力矩要大一点， 转速不需要太快。 底座电机选型 ( 直流电机应该可以？， 步进电机感觉更适合上身的控制， 并且需要有车轮编码器)
+     减震： 需不需要呢， 感觉不是那么需要， 后面可以尝试加一下
+     控制板： 底座MCU可以用 esp32， 或者更好一点的， 但esp32应按可以？（ esp32没有系统， 就可以运行一些写好的程序， 所以可能需要另一个带系统的板子来控制esp32， 比如树莓派....）
+     材料： 刚开始可以用3D打印， 后面可以考虑要不要换成金属的（ 金属的会好一点， 因为重心会偏低， 更稳一点）
+     (1). 确定底座(外形)，电机，控制板
+     (2). 打印出来测试测试一些功能（ 直线， 斜线， 直角 ）
+
   2. Usr could send control command to Robot/ and Robot will response to it
+      暂时先不管   
   3. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
+      暂时先不管
 
-
-
-## Stage 1
-1. Choose Hardware ( Control board / Motors )
-2. Body construction ( Modelling )
-3. Motor Testing ( Basic functionality )
-4. control signal transmittion ( button/Press action -> motor response)
-
-Try Mic/voice module hardware
-
-## Stage 2
-1. Body construciton( Modelling )
-2. usr' control object construction ( Modelling )
-3. Get Hand data by sensors
-4. Get arm data by sensors
-5. Testing IMU
-
-Try LLM API to implement basic conversation
-
-## Stage 3.
-1. Finish Body construciton( Modelling )
-2. Ouput Arm/Hand data to control unit
-3. Testing Response to 2.
-4. Finish Robot basic movement
-
-## Stage 4.
-1. Coorindator design ( Control method: PID or other methods) // AI maybe
-2. Finish Arm/Hand -> Robot
