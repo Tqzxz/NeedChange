@@ -4,7 +4,7 @@ Key things !!!!
 
 Current Goal Minimium Functionality:
 
-  1. Robot base that could move:
+  1. Robot base that could move( --- ):
 
    ztx:
      轮足： 确定是用轮足，但是具体怎么整还没确定， 用一个两个还是几个， 放在什么样的位置 （ 或者考虑吧换一种轮子的类型， 麦克纳木轮， 但感觉有点花）
@@ -21,4 +21,38 @@ Current Goal Minimium Functionality:
       暂时先不管   
   3. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
       暂时先不管
+
+
+Learning Staff:
+1. Driving Step Motors with proper driving board ( language: C/C++, or Python )
+2. Bottom PID controll
+
+
+Basic Control path:
+         |   控制信号输入 |   
+                         +---------+----------+
+                                   ↓
+                        +----------+-----------+
+                        |        滤波器        |
+                        |      滤除高频抖动     | ---------------- Filters.. 
+                        |                      |
+                        +----------+----------+
+                                   ↓
+                        +----------+-----------+
+                        |        协调器         |
+  robot perception ---->|  判断是否可执行动作    | --------------- Top controller （ Model-Based ）
+                        |   生成优化控制信号     |
+                        +----------------------+
+                                   ↓
+                        +----------+------------+
+  robot perception ---->|     姿态控制（微调）    | --------------- Base Controller ( PID )
+                        |   仅在动作执行中小幅修正 |
+                        +---------+-------------+
+                                 ↓
+                            +----+----+
+                            | 执行器组 |   ------------------------ Motors
+                            +---------+
+
+
+
 
