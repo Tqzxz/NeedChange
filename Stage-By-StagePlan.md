@@ -12,7 +12,8 @@ Current Goal Minimium Functionality:
      控制板： 底座MCU可以用 esp32， 或者更好一点的， 但esp32应按可以？（ esp32没有系统， 就可以运行一些写好的程序， 所以可能需要另一个带系统的板子来控制esp32， 比如树莓派....）
      材料： 刚开始可以用3D打印， 后面可以考虑要不要换成金属的（ 金属的会好一点， 因为重心会偏低， 更稳一点）
      (1). 确定底座(外形)，电机，控制板
-     (2). 打印出来测试测试一些功能（ 直线， 斜线， 直角 ）
+    （2). 确定控制方式
+     (3). 电机、底座模型打印出来测试测试一些功能（ 直线， 斜线， 直角 ）
 
   2. Usr could send control command to Robot/ and Robot will response to it
       暂时先不管   
