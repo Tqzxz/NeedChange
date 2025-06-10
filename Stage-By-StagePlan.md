@@ -1,4 +1,5 @@
-
+Key things !!!!
+1. Control method is the most important techique in this project, very likely related to control theory PID, LQR, MPC, Nureal Network based(Deep learning) , Reinforcement learning
 
 
 Current Goal Minimium Functionality:
