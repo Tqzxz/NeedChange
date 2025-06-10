@@ -4,9 +4,14 @@ Key things !!!!
 
 Current Goal Minimium Functionality:
 
-  1. Robot base that could move( --- ):
 
-   ztx:
+Learning Staff:
+1. Driving Step Motors with proper driving board ( language: C/C++, or Python )
+2. Bottom PID controll
+
+
+  1. Robot base that could move( --- ):
+     
      轮足： 确定是用轮足，但是具体怎么整还没确定， 用一个两个还是几个， 放在什么样的位置 （ 或者考虑吧换一种轮子的类型， 麦克纳木轮， 但感觉有点花）
      电机： 底座的驱动电机肯定力矩要大一点， 转速不需要太快。 底座电机选型 ( 直流电机应该可以？， 步进电机感觉更适合上身的控制， 并且需要有车轮编码器)
      减震： 需不需要呢， 感觉不是那么需要， 后面可以尝试加一下
@@ -15,20 +20,15 @@ Current Goal Minimium Functionality:
      确定控制方式（上半身同步控制， 手掌手臂头部腰部， 下半身脚踩机关控制机器人底座电机）
      (1). 确定底座(外形)，电机，控制板
     （2). 电机、底座模型打印出来测试测试一些功能（ 直线， 斜线， 直角 ）
-     (3). 确定获取手掌姿势的方式，（肌电信号？ 伸缩的那种传感器？）
+     (3). （2）加入PID controller 再测试测试
 
-  2. Usr could send control command to Robot/ and Robot will response to it
-      暂时先不管   
-  3. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
+  2. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
       暂时先不管
 
 
-Learning Staff:
-1. Driving Step Motors with proper driving board ( language: C/C++, or Python )
-2. Bottom PID controll
-
 
 Basic Control path:
+//
          |   控制信号输入 |   
                          +---------+----------+
                                    ↓
