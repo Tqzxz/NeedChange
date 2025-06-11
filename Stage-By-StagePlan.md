@@ -1,4 +1,4 @@
-
+![image](https://github.com/user-attachments/assets/8b102942-117e-4e41-b47a-cb56cbcac549)
 # general description：
   控制方式： 玩家同步控制机器人运动包括（移动，使用武器）//算法优化动作的执行 通过一些外部传感器采集用户的运动，传递给机器人。  （上半身可以同步控制，下半身可以就是踩左右脚油门等）
   玩法    ： 多人线下竞技( 类似红蓝方对抗， 射击类)
@@ -36,7 +36,15 @@ Learning Staff:
     （2). 电机、底座模型打印出来测试测试一些功能（ 直线， 斜线， 直角 ）
      (3). （2）加入PID controller 再测试测试
 
-  2. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
+    赵清玉：
+    关于外形：我们真的要做人形机器人吗，关于人形机器人轮子放在脚上有点僵。
+    我的想法是做轮子是履带的那种，这样不管是控制还是其他的都好些
+    ![image](https://github.com/user-attachments/assets/eb7cfe23-a819-423b-84d9-ec87b37f1165)
+
+    
+    
+
+  3. Create an Third Party Interface to capture Time-to-Time Robot information( HP, velocity, location..)
       暂时先不管
 
 
