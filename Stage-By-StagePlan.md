@@ -1,9 +1,23 @@
-Key things !!!!
+
+# general description：
+  控制方式： 玩家同步控制机器人运动包括（移动，使用武器）//算法优化动作的执行 通过一些外部传感器采集用户的运动，传递给机器人。  （上半身可以同步控制，下半身可以就是踩左右脚油门等）
+  玩法    ： 多人线下竞技( 类似红蓝方对抗， 射击类)
+  机制    ： 
+    1.属性成长（软件限制硬件的最大功率等等）， 比如随着成长， 软件逐渐对电机的最大功率提高， 装备也会提高属性
+    2.武器机制：机器人可以装备一些外部武器防具辅助道具等， 不同组合触发不同效果， 可以使用特殊技能。 射击武器只能使用低动能子弹比如BB弹，水弹等等， 可以给子弹上标签在被攻击的时候可以区分子弹来源
+    3.虚拟HP  ：对每个机器人初始化虚拟血条、蓝条、电量、能量条等等
+    4.负面效果： 机器人身上可以安装多个传感器，检测是否被攻击到  电量/血量为0，则被外部工作人员或者其他方式送回复活点
+    5.moba迷雾机制：没有全部地图视野， 视野来源是从机器人头部的摄像头传递回来， 装备属性/属性成长也包括视野
+    6 地图  ： 非平面地图， 有虚拟回复血量能量的机制， 
+    7.技能  ： 不同机器人初始属性不同，硬件配置不同， 功能性不同。 可使用专属技能，但需要属性达到一定值， 属性越高， 攻击/技能造成的血量损失越高
+    8.胜利机制：可以采用moba推塔的方式，或者其他别的 再想想
+    ..其他的再想想 
+
+Key things
 1. Control method is the most important techique in this project, very likely related to control theory PID, LQR, MPC, Nureal Network based(Deep learning) , Reinforcement learning
 
 
-Current Goal Minimium Functionality:
-
+Current Goal : Minimium Functionality
 
 Learning Staff:
 1. Driving Step Motors with proper driving board ( language: C/C++, or Python )
