@@ -7,4 +7,4 @@
     run this command: pip config set global.index-url https://pypi.tuna.tsinghua.edu.cn/simple
 ## 4. Run this >>: conda env create -f environment.yml down the folder d2l-zh
 ## 5. Now we have a virtual environment with all required APIS
- Run this conda activate [the_path_of_environment]
+ Run this conda activate [the_path_of_environment]  
