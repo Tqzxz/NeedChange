@@ -1,9 +1,13 @@
 
-
-from mxnet import autograd, nd
+from mxnet import autograd, nd, init
+from mxnet import gluon
+from mxnet.gluon import data as gdata
+from mxnet.gluon import loss as gloss
+from mxnet.gluon import nn
 import random
 from time import time
 import d2lzh
+# from IPython import display
 
 class ML_pipeline:
 
@@ -11,39 +15,8 @@ class ML_pipeline:
 
         self.data_set = None 
         self.labels   = None 
-    
-    def vector_calculation_test( self, ):
 
-        ## Create Two 1000 dim Vectors
-        a = nd.ones(shape=1000)
-        b = nd.ones(shape=1000)
-
-        ## Common way to do the vector addition "One by One"
-        t1 = time()
-        c = nd.ones(shape=1000)
-        for i  in range(1000):
-            c[i] = a[i] + b[i]
-        t2 = time()
-
-        ## Faster way to do the addition
-        d = a + b
-        t3 = time()
-        
-        print(f"Common addition takes {t2 - t1}\nvecotrized_opeartion just takes {t3 - t2}")
-
-        return 
-
-    def linear_regrassion( self, ):
-        
-        # Generate Original Data-Set
-        self.linear_regrassion_generate_data_set()
-
-        # Virtualise data
-        d2lzh.set_figsize()
-        d2lzh.plt.scatter( self.data_set.asnumpy(), self.labels.asnumpy(), 1)
-
-
-    def linear_regrassion_generate_data_set( self, ):
+    def linear_regression_generate_data_set( self, ):
         
         feature_nm = 2
         data_nm    = 1000
@@ -60,8 +33,40 @@ class ML_pipeline:
 
         return 
     
+    def run( self, ):
+
+        self.linear_regression_generate_data_set()
+
+        batch_size = 10
+        data_set   = gdata.ArrayDataset( self.data_set, self.labels )
+        data_iter  = gdata.DataLoader(data_set, batch_size, shuffle=True)
+
+        # w = nd.random.normal(scale=0.01, shape=(len(self.data_set), 1))
+        # b = nd.zeros(shape=(1,))
+        net = nn.Sequential()
+
+        net.add(nn.Dense(1))
+
+        net.initialize(init.Normal(sigma=0.01))
+
+        loss = gloss.L2Loss()
+        
+        trainer = gluon.Trainer(net.collect_params(), 'sgd', {'learning_rate':0.03})
+
+        num_epoch = 3
+
+        for epoch in range(1, num_epoch+1):
+            for x, y in data_iter:
+                with autograd.record():
+                    l = loss(net(x),y)
+                l.backward()
+                trainer.step(batch_size)
+            l = loss(net(self.data_set), self.labels )
+            print(f'epoch {epoch}, loss:{l.mean().asnumpy()}')
+
+
 
 if __name__ == "__main__":
 
     ml_test = ML_pipeline()
-    ml_test.linear_regrassion()
+    ml_test.run()
