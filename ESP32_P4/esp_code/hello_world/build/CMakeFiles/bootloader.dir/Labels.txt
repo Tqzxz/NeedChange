@@ -1,0 +1,13 @@
+# Target labels
+ bootloader
+# Source files and their labels
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/CMakeFiles/bootloader
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/CMakeFiles/bootloader.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/CMakeFiles/bootloader-complete.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-install.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-mkdir.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-download.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-update.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-patch.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-configure.rule
+/workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/bootloader-prefix/src/bootloader-stamp/bootloader-build.rule

@@ -1,0 +1,97 @@
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/codespace/.espressif/python_env/idf6.0_py3.12_env/bin/python -DESP_PLATFORM=1 -DIDF_TARGET=esp32p4 -DCCACHE_ENABLE=0 /workspaces/NeedChange/ESP32_P4/esp_code/hello_world
+-- Found Git: /usr/local/bin/git (found version "2.49.0") 
+-- Initialising new submodule components/bootloader/subproject/components/micro-ecc/micro-ecc...
+Submodule path 'components/bootloader/subproject/components/micro-ecc/micro-ecc': checked out '24c60e243580c7868f4334a1ba3123481fe1aa48'
+-- Initialising new submodule components/bt/controller/lib_esp32...
+Submodule path 'components/bt/controller/lib_esp32': checked out '6d007b7167146b31256b29fed31e04dc46989885'
+-- Initialising new submodule components/bt/controller/lib_esp32c2/esp32c2-bt-lib...
+Submodule path 'components/bt/controller/lib_esp32c2/esp32c2-bt-lib': checked out '06c5ef1481e6e5ff9308d6abe9c1e576d60c946f'
+-- Initialising new submodule components/bt/controller/lib_esp32c3_family...
+Submodule path 'components/bt/controller/lib_esp32c3_family': checked out '72599d583c232ea78d6461b5b502426c6e5a1ec9'
+-- Initialising new submodule components/bt/controller/lib_esp32c5/esp32c5-bt-lib...
+Submodule path 'components/bt/controller/lib_esp32c5/esp32c5-bt-lib': checked out '19bce59850e593a1e0231a1f051e24a1532c38d6'
+-- Initialising new submodule components/bt/controller/lib_esp32c6/esp32c6-bt-lib...
+Submodule path 'components/bt/controller/lib_esp32c6/esp32c6-bt-lib': checked out '841466ff3cf6635bf061c18e836807ee7f99ce78'
+-- Initialising new submodule components/bt/controller/lib_esp32h2/esp32h2-bt-lib...
+Submodule path 'components/bt/controller/lib_esp32h2/esp32h2-bt-lib': checked out 'bd09406c74d135d1d4e68c5e578540a8bcffbcac'
+-- Initialising new submodule components/bt/esp_ble_mesh/lib/lib...
+Submodule path 'components/bt/esp_ble_mesh/lib/lib': checked out 'd9fe7de9a9eb2a4e4c51172b9c303f9d800706fa'
+-- Initialising new submodule components/bt/host/nimble/nimble...
+Submodule path 'components/bt/host/nimble/nimble': checked out '0225775e49669cd4f070400908f73718bddce83b'
+-- Initialising new submodule components/cmock/CMock...
+Submodule path 'components/cmock/CMock': checked out 'eeecc49ce8af123cf8ad40efdb9673e37b56230f'
+Submodule path 'components/cmock/CMock/vendor/c_exception': checked out '71b47be7c950f1bf5f7e5303779fa99a16224bb6'
+Submodule path 'components/cmock/CMock/vendor/unity': checked out 'cf949f45ca6d172a177b00da21310607b97bc7a7'
+-- Initialising new submodule components/esp_coex/lib...
+Submodule path 'components/esp_coex/lib': checked out 'cb6667841f63457246d56a9170f3409917e9d5a8'
+-- Initialising new submodule components/esp_phy/lib...
+Submodule path 'components/esp_phy/lib': checked out '2fb71262baf38dc83591b4191731a0880bfdd3a5'
+-- Initialising new submodule components/esp_wifi/lib...
+Submodule path 'components/esp_wifi/lib': checked out '7587592417ecdb5163a104aebaedee0a87794608'
+-- Initialising new submodule components/heap/tlsf...
+Submodule path 'components/heap/tlsf': checked out '2867f6883a12920b1969ff9624c0ab0e4185c2ce'
+-- Initialising new submodule components/json/cJSON...
+Submodule path 'components/json/cJSON': checked out '8f2beb57ddad1f94bed899790b00f46df893ccac'
+-- Initialising new submodule components/lwip/lwip...
+Submodule path 'components/lwip/lwip': checked out 'ebabd6d79c120c5d4415755aab1d908d8b5fa372'
+-- Initialising new submodule components/mbedtls/mbedtls...
+Submodule path 'components/mbedtls/mbedtls': checked out '98ae8db06b8acc1dc1c6b1f78c2719cb776f4147'
+-- Initialising new submodule components/mqtt/esp-mqtt...
+Submodule path 'components/mqtt/esp-mqtt': checked out '6af4446a48ea7fa54948edc4e62277ed70abb6e1'
+-- Initialising new submodule components/openthread/lib...
+Submodule path 'components/openthread/lib': checked out '459448381b89b7c8e82480e4836d0dc32eb9c68b'
+-- Initialising new submodule components/openthread/openthread...
+Submodule path 'components/openthread/openthread': checked out 'ec2b0d487356d2955346457a6515201039140037'
+-- Initialising new submodule components/protobuf-c/protobuf-c...
+Submodule path 'components/protobuf-c/protobuf-c': checked out 'abc67a11c6db271bedbb9f58be85d6f4e2ea8389'
+-- Initialising new submodule components/spiffs/spiffs...
+Submodule path 'components/spiffs/spiffs': checked out '0dbb3f71c5f6fae3747a9d935372773762baf852'
+-- Initialising new submodule components/unity/unity...
+Submodule path 'components/unity/unity': checked out 'bf560290f6020737eafaa8b5cbd2177c3956c03f'
+-- Minimal build - ON
+-- The C compiler identification is GNU 14.2.0
+-- The CXX compiler identification is GNU 14.2.0
+-- The ASM compiler identification is GNU
+-- Found assembler: /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc
+-- Check for working C compiler: /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc
+-- Check for working C compiler: /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc -- works
+-- Detecting C compiler ABI info
+-- Detecting C compiler ABI info - done
+-- Detecting C compile features
+-- Detecting C compile features - done
+-- Check for working CXX compiler: /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-g++
+-- Check for working CXX compiler: /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-g++ -- works
+-- Detecting CXX compiler ABI info
+-- Detecting CXX compiler ABI info - done
+-- Detecting CXX compile features
+-- Detecting CXX compile features - done
+-- Building ESP-IDF components for target esp32p4
+-- Project sdkconfig file /workspaces/NeedChange/ESP32_P4/esp_code/hello_world/sdkconfig
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/riscv/ld/rom.api.ld
+-- Found Python3: /home/codespace/.espressif/python_env/idf6.0_py3.12_env/bin/python (found version "3.12.1") found components: Interpreter 
+-- Looking for pthread.h
+-- Looking for pthread.h - found
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD
+-- Performing Test CMAKE_HAVE_LIBC_PTHREAD - Success
+-- Found Threads: TRUE  
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
+-- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
+-- USING O3
+-- App "hello_world" version: cab0e68
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/esp-idf/esp_system/ld/memory.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build/esp-idf/esp_system/ld/sections.ld.in
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.api.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.rvfp.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.wdt.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.systimer.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.version.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.libc.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.libc-suboptimal_for_misaligned_mem.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.newlib.ld
+-- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/soc/esp32p4/ld/esp32p4.peripherals.ld
+-- Components: app_update bootloader bootloader_support cxx efuse esp_app_format esp_bootloader_format esp_common esp_driver_gpio esp_hw_support esp_mm esp_partition esp_pm esp_rom esp_security esp_system esp_timer esptool_py freertos hal heap log main mbedtls newlib partition_table pthread riscv soc spi_flash
+-- Component paths: /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/app_update /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/bootloader /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/bootloader_support /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/cxx /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/efuse /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_app_format /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_bootloader_format /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_common /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_driver_gpio /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_hw_support /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_mm /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_partition /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_pm /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_security /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_system /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_timer /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esptool_py /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/freertos /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/hal /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/heap /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/log /workspaces/NeedChange/ESP32_P4/esp_code/hello_world/main /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/mbedtls /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/newlib /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/partition_table /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/pthread /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/riscv /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/soc /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/spi_flash
+-- Configuring done
+-- Generating done
+-- Build files have been written to: /workspaces/NeedChange/ESP32_P4/esp_code/hello_world/build
