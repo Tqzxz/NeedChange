@@ -1,46 +1,25 @@
-from mxnet import autograd, nd
+from mxnet import gluon, init
+from mxnet.gluon import loss as gloss, nn
 import d2lzh as d2l
 
 class softmax_model:
 
     def __init__( self, ):
 
-        self.train_data = None
-        self.test_data  = None
+        self.net = nn.Sequential()
+        self.net.add(nn.Dense(10))
+        self.net.initialize(init.Normal(sigma=0.01))
 
-    def data_load( self, batch_size):
-        
+    def test( self, num_epoch=10, batch_size=128):
+
         train_iter, test_iter = d2l.load_data_fashion_mnist(batch_size)
+
+        loss = gloss.SoftmaxCrossEntropyLoss()
+
+        trainer = gluon.Trainer(self.net.collect_params(), 'sgd', {'learning_rate': 0.015})
+
+        d2l.train_ch3(self.net, train_iter, test_iter, loss, num_epoch, batch_size, None, None, trainer)
         
-    def softmax_layer( self, ):
-
-        num_inputs  = 784
-        num_outputs = 10
-
-        self.w = nd.random.normal(scale=0.01,shape=(num_inputs, num_outputs))
-        self.b = nd.zeros(num_outputs)
-
-        w.attach_grad()
-        b.attach_grad()
-
-    def softmax( self, X):
-        
-        X_exp     = X.exp()
-        partition = X_exp.sum(axis=1,keepdims=True)
-        return X_exp / partition
-
-    def net( self, X):
-
-        return self.softmax( nd.dot(X.reshape(-1,num_inputs),self.w) + self.b )
-
-
-    def ce_loss( self, y, y_hat):
-
-        return -nd.pick(y_hat,y).log()
-
-
-
-
 
 if __name__ == "__main__":
 
