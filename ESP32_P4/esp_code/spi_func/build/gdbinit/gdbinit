@@ -1,0 +1,2 @@
+source /workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/gdbinit/symbols
+source /workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/gdbinit/connect
