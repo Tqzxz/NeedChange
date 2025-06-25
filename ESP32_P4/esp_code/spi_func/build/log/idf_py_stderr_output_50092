@@ -1,0 +1,11 @@
+Command: ninja all
+CMake Error at /workspaces/NeedChange/ESP32_P4/esp/esp-idf/tools/cmake/component.cmake:318 (message):
+  Include directory
+  '/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/component/my_spi' is not
+  a directory.
+Call Stack (most recent call first):
+  /workspaces/NeedChange/ESP32_P4/esp/esp-idf/tools/cmake/component.cmake:493 (__component_add_include_dirs)
+  main/CMakeLists.txt:1 (idf_component_register)
+
+
+ninja: error: rebuilding 'build.ninja': subcommand failed

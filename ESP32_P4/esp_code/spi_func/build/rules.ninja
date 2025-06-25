@@ -6,7 +6,7 @@
 # It is included in the main 'build.ninja'.
 
 # =============================================================================
-# Project: hello_world
+# Project: spi_func
 # Configuration: 
 # =============================================================================
 # =============================================================================
@@ -22,7 +22,7 @@ rule CUSTOM_COMMAND
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER__hello_world.2eelf
+rule C_COMPILER__spi_func.2eelf
   depfile = $DEP_FILE
   deps = gcc
   command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
@@ -32,7 +32,7 @@ rule C_COMPILER__hello_world.2eelf
 #############################################
 # Rule for linking CXX executable.
 
-rule CXX_EXECUTABLE_LINKER__hello_world.2eelf
+rule CXX_EXECUTABLE_LINKER__spi_func.2eelf
   command = $PRE_LINK && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-g++  $FLAGS  $LINK_FLAGS $in  -o $TARGET_FILE $LINK_PATH $LINK_LIBRARIES && $POST_BUILD
   description = Linking CXX executable $TARGET_FILE
   restat = $RESTAT
@@ -62,63 +62,6 @@ rule C_COMPILER____idf_riscv
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER____idf_riscv
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_gpio
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_gpio
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_timer
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_timer
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_pm
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_pm
   command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -384,6 +327,25 @@ rule C_STATIC_LIBRARY_LINKER____idf_esp_mm
 #############################################
 # Rule for compiling C files.
 
+rule C_COMPILER____idf_esp_driver_gpio
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_gpio
+  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
 rule C_COMPILER____idf_spi_flash
   depfile = $DEP_FILE
   deps = gcc
@@ -395,6 +357,25 @@ rule C_COMPILER____idf_spi_flash
 # Rule for linking C static library.
 
 rule C_STATIC_LIBRARY_LINKER____idf_spi_flash
+  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
+  description = Linking C static library $TARGET_FILE
+  restat = $RESTAT
+
+
+#############################################
+# Rule for compiling C files.
+
+rule C_COMPILER____idf_esp_timer
+  depfile = $DEP_FILE
+  deps = gcc
+  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
+  description = Building C object $out
+
+
+#############################################
+# Rule for linking C static library.
+
+rule C_STATIC_LIBRARY_LINKER____idf_esp_timer
   command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -670,7 +651,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_cxx
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER____idf_esp_ringbuf
+rule C_COMPILER____idf_esp_pm
   depfile = $DEP_FILE
   deps = gcc
   command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
@@ -680,45 +661,7 @@ rule C_COMPILER____idf_esp_ringbuf
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER____idf_esp_ringbuf
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_pcnt
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_pcnt
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_gptimer
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_gptimer
+rule C_STATIC_LIBRARY_LINKER____idf_esp_pm
   command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT
@@ -746,7 +689,7 @@ rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_spi
 #############################################
 # Rule for compiling C files.
 
-rule C_COMPILER____idf_esp_driver_mcpwm
+rule C_COMPILER____idf_my_spi
   depfile = $DEP_FILE
   deps = gcc
   command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
@@ -756,330 +699,7 @@ rule C_COMPILER____idf_esp_driver_mcpwm
 #############################################
 # Rule for linking C static library.
 
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_mcpwm
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_ana_cmpr
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_ana_cmpr
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_i2s
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_i2s
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_sdmmc
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_sdmmc
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_sd_intf
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_sd_intf
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_sdmmc
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_sdmmc
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_sdspi
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_sdspi
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_bitscrambler
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_bitscrambler
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_rmt
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_rmt
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_tsens
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_tsens
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_sdm
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_sdm
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_i2c
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_i2c
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_uart
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_uart
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_ledc
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_ledc
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_parlio
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_parlio
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_usb_serial_jtag
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_usb_serial_jtag
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_esp_driver_twai
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_esp_driver_twai
-  command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
-  description = Linking C static library $TARGET_FILE
-  restat = $RESTAT
-
-
-#############################################
-# Rule for compiling C files.
-
-rule C_COMPILER____idf_driver
-  depfile = $DEP_FILE
-  deps = gcc
-  command = /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-gcc $DEFINES $INCLUDES $FLAGS -MD -MT $out -MF $DEP_FILE -o $out   -c $in
-  description = Building C object $out
-
-
-#############################################
-# Rule for linking C static library.
-
-rule C_STATIC_LIBRARY_LINKER____idf_driver
+rule C_STATIC_LIBRARY_LINKER____idf_my_spi
   command = $PRE_LINK && /usr/bin/cmake -E remove $TARGET_FILE && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ar qc $TARGET_FILE $LINK_FLAGS $in && /home/codespace/.espressif/tools/riscv32-esp-elf/esp-14.2.0_20241119/riscv32-esp-elf/bin/riscv32-esp-elf-ranlib $TARGET_FILE && $POST_BUILD
   description = Linking C static library $TARGET_FILE
   restat = $RESTAT

@@ -1,0 +1,8 @@
+Command: ninja all
+[0/1] Re-running CMake...
+-- Minimal build - ON
+-- Building ESP-IDF components for target esp32p4
+-- Configuring incomplete, errors occurred!
+See also "/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/CMakeFiles/CMakeOutput.log".
+FAILED: build.ninja 
+/usr/bin/cmake -S/workspaces/NeedChange/ESP32_P4/esp_code/spi_func -B/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build

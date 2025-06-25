@@ -17,4 +17,4 @@ set confirm off
 set confirm on
 
 # Load application symbols
-file /workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/hello_world.elf
+file /workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/spi_func.elf

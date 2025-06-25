@@ -12,10 +12,10 @@ file(REMOVE_RECURSE
   "flash_bootloader_args"
   "flash_project_args"
   "flasher_args.json"
-  "hello_world.bin"
-  "hello_world.map"
   "ldgen_libraries"
   "ldgen_libraries.in"
   "project_elf_src_esp32p4.c"
+  "spi_func.bin"
+  "spi_func.map"
   "x509_crt_bundle.S"
 )

@@ -39,21 +39,6 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_gpio/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_timer/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_pm/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
   include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/mbedtls/cmake_install.cmake")
 endif()
 
@@ -109,7 +94,17 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
+  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_gpio/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
   include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/spi_flash/cmake_install.cmake")
+endif()
+
+if(NOT CMAKE_INSTALL_LOCAL_ONLY)
+  # Include the install script for the subdirectory.
+  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_timer/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -179,17 +174,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_ringbuf/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_pcnt/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_gptimer/cmake_install.cmake")
+  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_pm/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
@@ -199,102 +184,7 @@ endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)
   # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_mcpwm/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_ana_cmpr/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_i2s/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/sdmmc/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_sd_intf/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_sdmmc/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_sdspi/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_sdio/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_dac/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_bitscrambler/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_rmt/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_tsens/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_sdm/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_i2c/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_uart/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_ledc/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_parlio/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_usb_serial_jtag/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/esp_driver_twai/cmake_install.cmake")
-endif()
-
-if(NOT CMAKE_INSTALL_LOCAL_ONLY)
-  # Include the install script for the subdirectory.
-  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/driver/cmake_install.cmake")
+  include("/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build/esp-idf/my_spi/cmake_install.cmake")
 endif()
 
 if(NOT CMAKE_INSTALL_LOCAL_ONLY)

@@ -210,7 +210,7 @@ CMAKE_PROJECT_DESCRIPTION:STATIC=
 CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 
 //Value Computed by CMake
-CMAKE_PROJECT_NAME:STATIC=hello_world
+CMAKE_PROJECT_NAME:STATIC=spi_func
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION:STATIC=3.6.3
@@ -382,6 +382,12 @@ mbedx509_LIB_DEPENDS:STATIC=general;__idf_cxx;general;__idf_newlib;general;__idf
 //Dependencies for the target
 p256m_LIB_DEPENDS:STATIC=general;__idf_cxx;general;__idf_newlib;general;__idf_freertos;general;__idf_esp_hw_support;general;__idf_heap;general;__idf_log;general;__idf_soc;general;__idf_hal;general;__idf_esp_rom;general;__idf_esp_common;general;__idf_esp_system;general;__idf_riscv;
 
+//Value Computed by CMake
+spi_func_BINARY_DIR:STATIC=/workspaces/NeedChange/ESP32_P4/esp_code/spi_func/build
+
+//Value Computed by CMake
+spi_func_SOURCE_DIR:STATIC=/workspaces/NeedChange/ESP32_P4/esp_code/spi_func
+
 
 ########################
 # INTERNAL cache entries
@@ -530,7 +536,7 @@ CMAKE_MODULE_LINKER_FLAGS_RELWITHDEBINFO-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_NM
 CMAKE_NM-ADVANCED:INTERNAL=1
 //number of local generators
-CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=69
+CMAKE_NUMBER_OF_MAKEFILES:INTERNAL=47
 //ADVANCED property for variable: CMAKE_OBJCOPY
 CMAKE_OBJCOPY-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_OBJDUMP
