@@ -5,10 +5,17 @@ import d2lzh as d2l
 from tools import corr2d
 
 
-
 def corr2d_multi_in( X, K):
 
     return nd.add_n(*[d2l.corr2d(x,k) for x,k in zip(X,K)])
+
+def corr2d_multi_out_1x1(X, K):
+
+    c_i, h, w = X.shape
+    c_o  = K.shape[0]
+    X.reshape( (c_i, h * w))
+    K.reshape( (c_o, c_i))
+    
 
 
 if __name__ == "__main__":
