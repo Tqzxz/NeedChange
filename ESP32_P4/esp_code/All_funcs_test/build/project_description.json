@@ -1,7 +1,7 @@
 {
     "version":            "1.2",
     "project_name":       "All_funcs_test",
-    "project_version":    "cdf4b0d-dirty",
+    "project_version":    "92a1898-dirty",
     "project_path":       "/workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test",
     "idf_path":           "/workspaces/NeedChange/ESP32_P4/esp/esp-idf",
     "build_dir":          "/workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test/build",

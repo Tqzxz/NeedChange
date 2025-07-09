@@ -1,5 +1,5 @@
-Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/codespace/.espressif/python_env/idf6.0_py3.12_env/bin/python -DESP_PLATFORM=1 -DCCACHE_ENABLE=0 /workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test
--- IDF_TARGET is not set, guessed 'esp32p4' from sdkconfig '/workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test/sdkconfig'
+Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/codespace/.espressif/python_env/idf6.0_py3.12_env/bin/python -DESP_PLATFORM=1 -DIDF_TARGET=esp32p4 -DCCACHE_ENABLE=0 /workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test
+-- Existing sdkconfig '/workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test/sdkconfig' renamed to '/workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test/sdkconfig.old'.
 -- Found Git: /usr/local/bin/git (found version "2.49.0") 
 -- Minimal build - ON
 -- The C compiler identification is GNU 14.2.0
@@ -30,7 +30,7 @@ Command: cmake -G Ninja -DPYTHON_DEPS_CHECKED=1 -DPYTHON=/home/codespace/.espres
 -- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS
 -- Performing Test C_COMPILER_SUPPORTS_WFORMAT_SIGNEDNESS - Success
 -- USING O3
--- App "All_funcs_test" version: cdf4b0d-dirty
+-- App "All_funcs_test" version: 92a1898-dirty
 -- Adding linker script /workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test/build/esp-idf/esp_system/ld/memory.ld
 -- Adding linker script /workspaces/NeedChange/ESP32_P4/esp_code/All_funcs_test/build/esp-idf/esp_system/ld/sections.ld.in
 -- Adding linker script /workspaces/NeedChange/ESP32_P4/esp/esp-idf/components/esp_rom/esp32p4/ld/esp32p4.rom.ld
