@@ -30,7 +30,7 @@ __--2025.07.09__<br>
 
 1. 项目结构:<br>
 esp32项目中有三种重要的元素，源代码main, 组件库components, CMakeLists.txt文件。 一般也就这三个东西， 大概知道里面是写什么的，有什么用就行 <br>
-    （a）源代码就是有main.c的文件夹。 里面也许会有main.h来做头文件，也可以不用。但是一定要有CMakeLists.txt和main.c 这两个文件 main.c就是程序入口 非常重要。 CMakeLists.txt文件是构建esp32项目不能缺少的配置文件，可以理解为在构建项目的过程中，这个文件告诉了构建脚本这个文件夹下的.c .h需要什么样的配置。 如果配置和代码不匹配，就会构建失败报错。 常见的错误例子有代码中调用的API没有在CMakeList里面声明, CMakeLists.txt有等级 下面是非项目级和项目级的内容(项目级的CMakeLists.txt里的内容和非项目级的不一样，毕竟构建模块和构建整个项目需要的配置肯定不同)
+    （a）源代码就是有main.c的文件夹。 里面也许会有main.h来做头文件，也可以不用。但是一定要有CMakeLists.txt和main.c 这两个文件 main.c就是程序入口 非常重要。 CMakeLists.txt文件是构建esp32项目不能少的配置文件，可以理解为在构建项目的过程中，这个文件告诉了构建脚本这个文件夹下的.c .h需要什么样的配置。 如果配置和代码不匹配，就会构建失败报错。 常见的错误例子有代码中调用的API没有在CMakeList里面声明, CMakeLists.txt有等级 下面是非项目级和项目级的内容(项目级的CMakeLists.txt里的内容和非项目级的不一样，毕竟构建模块和构建整个项目需要的配置肯定不同)
     ```  
             idf_component_register(                    //非项目级
             SRCS "main.c"
@@ -44,4 +44,31 @@ esp32项目中有三种重要的元素，源代码main, 组件库components, CMa
             idf_build_set_property(MINIMAL_BUILD ON)
             project(All_funcs_test)    
     ```
+
+
+
+
+## MCPWM 
+
+
+Connection :
+
+```
+      ESP Board              BM50 Motor            12V
++-------------------+     +---------------+         ^
+|          PWM_GPIO +-----+PWM        VCC +---------+
+|          DIR_GPIO +-----+DIR            |
+|        BRAKE_GPIO +-----+BRAKE          |
+|                   |     |               |
+|         encoder_a +-----+a_channel      |
+|         encoder_b +-----+b_channel      |
+|                   |     |               |
+|               GND +-----+GND            |
++-------------------+     +---------------+
+```
+
+
+
+
+
  

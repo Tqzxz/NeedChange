@@ -7,7 +7,7 @@
 老版本mcpwm在driver/mcpwm.h中,但是新版本迁移到了driver/mcpwm_prelude.h中
 
 新版本的ESP32 设置MCPWM的方式有点麻烦： 大概就是下面的这个介绍
-    (1)首先需要调用create函数创建出 group,timer,operator,geneartor,comparator这5个对象
+    (1)首先需要调用create函数创建出 timer,operator,geneartor,comparator这4个对象
     (2)group对象负责管理MCPWM的硬件资源组，一般ESP常见有两个MCPWM组 所以group_id可以选择0或者1
     (3)timer对象负责定时器的配置，比如计数模式，频率等等常见参数 定时器的决定了PWM输出的频率，频率越高,实时控制分辨率就高
     (4)operator对象负责输出通道的配置,通常一个MCPWM硬件资源组有两个输出通道(A/B)
@@ -29,152 +29,115 @@
 
 */
 
-
-mcpwm_timer_handle_t create_mcpwm_timer(int mcpwm_group_id,int resolution_hz, int period_ticks)
-{
-    mcpwm_timer_handle_t timer         = NULL;
-    mcpwm_timer_config_t timer_config  = {
-        .group_id      = mcpwm_group_id,
-        .clk_src       = MCPWM_TIMER_CLK_SRC_DEFAULT, 
-        .resolution_hz = resolution_hz,      // 1s有100W个ticks, 一个tick为1us
-        .count_mode    = MCPWM_TIMER_COUNT_MODE_UP,
-        .period_ticks  = period_ticks         // 以ticks作为单位， 这里时20000个ticks, 也就是20ms一个周期
-    }; 
-    ESP_ERROR_CHECK(mcpwm_new_timer(&timer_config, &timer));
-    return timer;
-}
-
-mcpwm_oper_handle_t create_mcpwm_operator(int mcpwm_group_id, mcpwm_timer_handle_t timer)
-{
-    mcpwm_oper_handle_t oper          = NULL;
-    mcpwm_operator_config_t oper_config   = {
-        .group_id = mcpwm_group_id
-    };
-    ESP_ERROR_CHECK(mcpwm_new_operator(&oper_config, &oper));
-    ESP_ERROR_CHECK(mcpwm_operator_connect_timer(oper, timer));
-    return oper;
-}
-
-mcpwm_gen_handle_t create_mcpwm_generator(mcpwm_oper_handle_t oper, gpio_num_t pwm_gpio_num)
-{
-    mcpwm_gen_handle_t gen       = NULL;
-    mcpwm_generator_config_t gen_config = {
-        .gen_gpio_num = pwm_gpio_num,
-        .flags = { .invert_pwm = true }
-    };
-    ESP_ERROR_CHECK(mcpwm_new_generator(oper, &gen_config, &gen));
-    return gen;
-}
-
-mcpwm_cmpr_handle_t create_mcpwm_comparator(mcpwm_oper_handle_t oper)
-{
-    mcpwm_cmpr_handle_t comparator = NULL;
-    mcpwm_comparator_config_t cmpr_config = {
-        .flags = { 0 }
-    };
-    ESP_ERROR_CHECK(mcpwm_new_comparator(oper, &cmpr_config, &comparator));
-    return comparator;
-}
-
-void change_mcpwm_timer(mcpwm_oper_handle_t oper,mcpwm_timer_handle_t old_timer, mcpwm_timer_handle_t new_timer)
-{
-    //释放旧定时器
-    mcpwm_timer_start_stop(old_timer, MCPWM_TIMER_STOP_FULL);
-    mcpwm_timer_disable(old_timer);
-    mcpwm_del_timer(old_timer);
-    //连接新定时器
-    ESP_ERROR_CHECK(mcpwm_operator_connect_timer(oper, new_timer));
-    //启动新定时器
-    mcpwm_timer_enable(new_timer);
-    ESP_ERROR_CHECK(mcpwm_timer_start_stop(new_timer,MCPWM_TIMER_START_NO_STOP));
-}
-
-void set_gen_actions(mcpwm_gen_handle_t gen, mcpwm_cmpr_handle_t comparator)
-{
-    // 设置generator的行为
-    mcpwm_gen_timer_event_action_t action_on_timer = {
-        .direction = MCPWM_TIMER_DIRECTION_UP,
-        .event = MCPWM_TIMER_EVENT_EMPTY, // 计数器归零（周期开始）
-        .action = MCPWM_GEN_ACTION_HIGH   // 输出高电平
-    };
-    ESP_ERROR_CHECK(mcpwm_generator_set_action_on_timer_event(gen, action_on_timer));
-
-    // 设置比较器的行为
-    mcpwm_gen_compare_event_action_t action_on_compare = {
-        .direction = MCPWM_TIMER_DIRECTION_UP,
-        .comparator = comparator,
-        .action = MCPWM_GEN_ACTION_LOW // 输出低电平
-    };
-    ESP_ERROR_CHECK(mcpwm_generator_set_action_on_compare_event(gen, action_on_compare));
-
-}
-
-void set_comp_value(mcpwm_cmpr_handle_t comparator, int compare_value)
-{
-    // 设置比较器的比较值
-    ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(comparator, compare_value));
-}
-
 void mcpwm_motor_test(void){
+    // GPIO Init
 
-    int mcpwm_group_id      = 0;
-    int timer_resolution_hz = 1000000; 
-    int timer_period_ticks  = 20000;
-    int comp_value          = 100000; 
+    // 1. 定义GPIO引脚
+    const int PWM_PIN   = GPIO_NUM_36;
+    const int DIR_PIN   = GPIO_NUM_32;
+    const int BRAKE_PIN = GPIO_NUM_25;
 
-    mcpwm_timer_handle_t timer   = create_mcpwm_timer(mcpwm_group_id, timer_resolution_hz, timer_period_ticks);
-    mcpwm_oper_handle_t oper     = create_mcpwm_operator(mcpwm_group_id, timer);
-    mcpwm_gen_handle_t gen       = create_mcpwm_generator(oper, PWM_PIN);
-    mcpwm_cmpr_handle_t comparator = create_mcpwm_comparator(oper);
-    set_gen_actions(gen, comparator);
-    mcpwm_timer_enable(timer);
-    ESP_ERROR_CHECK(mcpwm_timer_start_stop(timer,MCPWM_TIMER_START_NO_STOP));
+    // 2. 重置引脚到默认状态
+    gpio_reset_pin(PWM_PIN);
+    gpio_reset_pin(DIR_PIN);
+    gpio_reset_pin(BRAKE_PIN);
 
-    ESP_LOGI("MCPWM", "PWM started on GPIO %d", PWM_PIN);
-
-    gpio_config_t gpio_config1 = {
+    // 3. 设置引脚配置结构体
+    gpio_config_t DIR_config = {
         .pin_bit_mask = 1ULL << DIR_PIN,
-        .mode  =  GPIO_MODE_OUTPUT,
+        .mode         =  GPIO_MODE_OUTPUT,
     };
 
-    gpio_config_t gpio_config2 = {
+    gpio_config_t BRAKE_config = {
         .pin_bit_mask = 1ULL << BRAKE_PIN,
-        .mode  =  GPIO_MODE_OUTPUT,
+        .mode         =  GPIO_MODE_OUTPUT,
+        .pull_up_en   = GPIO_PULLUP_ENABLE    // Pull-Up Output High
     };
 
-    gpio_config(&gpio_config1);
-    gpio_config(&gpio_config2);
+    // 4. 配置引脚
+    gpio_config(&DIR_config);
+    gpio_config(&BRAKE_config);
 
-    gpio_set_level(DIR_PIN, 1);
+    // 5. 设置引脚电平
+    gpio_set_level(DIR_PIN,0);
+    gpio_set_level(BRAKE_PIN,1);
 
+    
+    // MCPWM INIT
+    const int mcpwm_group_id      = 0;
+    const int timer_resolution_hz = 1000000;    // 1Mhz表示1s输出1000000个ticks单位, 一个ticks为 1e-06 s
+    const int timer_period_ticks  = 20000;      // period表示一个周期为20000个ticks单位，总时长为0.02s, 即50Hz
+    const int INIT_COMP           = 8000;       // 根据tick来，取值范围从0到 period_ticks，来表示一个周期内的占空比
+
+    // 1. Timer 定时器初始化， 定时器用来确定输出PWM的频率和PWM的周期时长
+    mcpwm_timer_handle_t timer = NULL;
+    mcpwm_timer_config_t timer_config = {
+        .group_id = mcpwm_group_id,
+        .clk_src = MCPWM_TIMER_CLK_SRC_DEFAULT,
+        .resolution_hz = timer_resolution_hz,
+        .period_ticks = timer_period_ticks,
+        .count_mode = MCPWM_TIMER_COUNT_MODE_UP,
+    };
+    ESP_ERROR_CHECK(mcpwm_new_timer(&timer_config, &timer));
+
+    // 2. Operator操作器初始化，操作器与Timer,generaotr,comparator连接
+    mcpwm_oper_handle_t oper = NULL;
+    mcpwm_operator_config_t operator_config = {
+        .group_id = mcpwm_group_id, 
+    };
+    ESP_ERROR_CHECK(mcpwm_new_operator(&operator_config, &oper));
+
+    //连接Timer
+    ESP_ERROR_CHECK(mcpwm_operator_connect_timer(oper, timer));
+
+    // 3. 比较器初始化
+    mcpwm_cmpr_handle_t comparator = NULL;
+    mcpwm_comparator_config_t comparator_config = {
+        .flags.update_cmp_on_tez = true,
+    };
+    ESP_ERROR_CHECK(mcpwm_new_comparator(oper, &comparator_config, &comparator));
+
+    // 4. 生成器初始化
+    mcpwm_gen_handle_t generator = NULL;
+    mcpwm_generator_config_t generator_config = {
+        .gen_gpio_num = PWM_PIN,
+    };
+
+    ESP_ERROR_CHECK(mcpwm_new_generator(oper, &generator_config, &generator));
+
+    ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(comparator, INIT_COMP));
+
+    ESP_ERROR_CHECK(mcpwm_generator_set_action_on_timer_event(generator,
+                                                            MCPWM_GEN_TIMER_EVENT_ACTION(MCPWM_TIMER_DIRECTION_UP, MCPWM_TIMER_EVENT_EMPTY, MCPWM_GEN_ACTION_LOW)));
+    // go high on compare threshold
+    ESP_ERROR_CHECK(mcpwm_generator_set_action_on_compare_event(generator,
+                                                            MCPWM_GEN_COMPARE_EVENT_ACTION(MCPWM_TIMER_DIRECTION_UP, comparator, MCPWM_GEN_ACTION_HIGH)));
+
+    ESP_ERROR_CHECK(mcpwm_timer_enable(timer));
+    ESP_ERROR_CHECK(mcpwm_timer_start_stop(timer, MCPWM_TIMER_START_NO_STOP));
+
+    int cmp_value = INIT_COMP;
     while(1){
-        
-        set_comp_value(comparator, comp_value);    // 10%
-        vTaskDelay(1000/portTICK_PERIOD_MS);       // (1000/portTICK_PERIOD_MS)是1000ms
-        set_comp_value(comparator, comp_value*2);  // 20%
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*3);  // 30%
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*4);  // 40%
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*5);  // 50%
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        gpio_set_level(DIR_PIN,0);                 // 反向
-        set_comp_value(comparator, comp_value*5); 
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*4); 
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*3); 
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*2); 
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*1);
-        vTaskDelay(1000/portTICK_PERIOD_MS);
-        set_comp_value(comparator, comp_value*5);  // 50%
-        gpio_set_level(BRAKE_PIN,1);               // 急刹
-       
-    }
-}
 
+        ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(comparator, cmp_value));
+        vTaskDelay(pdMS_TO_TICKS(500));
+
+        cmp_value += 1000;
+
+        if(cmp_value == 16000){
+            while(1){
+                ESP_ERROR_CHECK(mcpwm_comparator_set_compare_value(comparator, cmp_value));
+                vTaskDelay(pdMS_TO_TICKS(500));
+                cmp_value -= 1000;
+
+                if(cmp_value == 7000){
+                    break;
+                }
+            }
+        }
+        
+    }
+
+}
 
 
