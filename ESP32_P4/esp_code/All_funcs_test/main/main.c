@@ -30,5 +30,7 @@ https://github.com/espressif/esp-hosted-mcu/blob/main/README.md 这个开源仓�
 2. 硬件连接传输通道配置 (SPI, SDIO), P4 module是采用了SDIO的连接方式
 配置方式参考这个仓库https://github.com/espressif/esp-hosted-mcu/blob/main/docs/sdio.md
 
+3. 添加好组件，并初始化配置好SDIO硬件连接之后，就可以在主程序中使用esp_hosted_... 等无线通信函数来通信，虽然底层是通信调用C6模块
+
 
 */
