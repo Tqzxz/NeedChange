@@ -68,7 +68,33 @@ Connection :
 
 ### Wifi
 
-esp32 wifi
+wifi工作模式有 AP, STA, AP+STA,等等 <br>
+AP模式： AP模式下，设备被定义为无线网络中的节点，会向外广播SSID,允许其他设备对它进行连接(路由器就是AP模式下的应用)
+STA模式：STA模式下，设备被定义为无线网络中的客户端/用户，可以进行AP扫描，并尝试连接，并且通过认证后可以通过AP设备访问其他设备,进行数据的交换
+
+
+
+include <stdio.h>
+include "nvs_flash.h"
+include "esp_wifi.h"
+include "esp_log.h"
+include "esp_event.h"
+#include "esp_err.h"
+
+void app_main(void){
+
+  //(1). 初始化 nvs, 就是一些联网配置
+  ESP_ERROR_CHECK(nvs_flash_init());     
+
+  //(2). 初始化TCP/IP协议栈
+  ESP_ERROR_CHECK(esp_netif_init());
+
+  //(3). 创建事务循环
+  ....
+
+  //(4). 创建STA对象，进而才能使用STA通信模式
+
+}
 
 
 
