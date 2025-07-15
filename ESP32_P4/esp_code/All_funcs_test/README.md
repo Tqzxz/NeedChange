@@ -50,7 +50,6 @@ esp32项目中有三种重要的元素，源代码main, 组件库components, CMa
 ## 4. 外设组件
 ### MCPWM 
 
-
 Connection :
 
 ```
@@ -66,6 +65,16 @@ Connection :
 |               GND +-----+GND            |
 +-------------------+     +---------------+
 ```
+
+### Wifi
+
+esp32 wifi
+
+
+
+
+
+
 
 
 
