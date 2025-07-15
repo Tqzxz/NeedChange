@@ -1,6 +1,6 @@
 # freeRtos
 
-##1. ESP存储硬件结构
+## 1. ESP存储硬件结构
 DRAM也叫 Dynamic random access memo <br>
 动态随机访问内存，数字电路中有学过这种电路，特点是需要不断刷新电压水平来保存信息，断电不保护数据。优点是结构简单，不需要太多晶体管，相比于SRAM. <br>
 
