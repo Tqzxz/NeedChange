@@ -31,7 +31,9 @@
     sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
   ```  
   下载必要工具比如 python3, cmake, venv 等等， 需要注意 Cmake需要3.16及以上的版本，老版本Linux系统运行指令可能下载的是老版本Cmake, 需要先升级系统或者直接下载Cmake3, 有些工具比如python3大概率Linux系统是自带，有些工具有就可以不用下，怎么  系统升级，查看是否下载了某些工具这些指令上网一搜就有<br>
+  
   2. 下载好了这些工具之后，就可以来下载ESP32官方提供的开发工具 ESP-IDF 了，这个工具里面有非常多的内容， 其中包括ESP32底层的源代码，编译你项目的脚本程序，等等。这个项目就是从ESP32底层源码向上抽象了一层，将一些可以合并的函数合并成一个功能。在github找到ESP32IDF仓库https://github.com/espressif/esp-idf之后，把这个项目复制到本地，并且一定要记住存放这个项目的路径，后续也会用到这个路径。具体的复制方式可以选择直接访问Github来找这个项目，或者Linux终端上用git clone命令来克隆项目，都可以,只要下载好这个项目就可以。 <br>
+  
   3. 下载好了ESP-idf之后需要继续下载一些官方指定如果要使用ESp-idf所需要的工具，这些工具和下载方式官方已经写成了下载脚本，并放在了esp-idf这个项目中， 所以在linux系统下，我们需要从终端进入这个项目路径(cd) 然后执行这个脚本就可以了 
    ``` linux
       ./install.sh esp32    #注意这里esp32表示的是你将要使用ESP32板子的型号，比如我用的基于ESP32 P4的开发板，那我就要换成esp32p4
