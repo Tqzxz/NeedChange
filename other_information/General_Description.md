@@ -147,7 +147,9 @@ DRAM也叫 Dynamic random access memo <br>
             4. 给任务传递的参数  <br>
             5. 任务优先级         取值范围是 0 - (configMAX-PRIORITIES-1)  <br>
             6. 任务返回句柄       可以理解为是任务对象， 这个对象中包含一些成员信息，后续可以通过引用这个对象来修改这个任务的属性  <br>
-            7. 任务分配核(0/1)  <br>
+            7. 任务分配核(0/1) 
+            
+***
 ### 3.3 freeRtos的一些常见函数 
   (A) XTaskGetTickCount()                            : 获取当前系统的节拍数      <br>
   (B) vTaskDelayUntil(&系统节拍， int 节拍数)         ： 根据系统节拍，精确延时    <br>
@@ -172,7 +174,7 @@ DRAM也叫 Dynamic random access memo <br>
     xTaskCreatePinnedToCore(taskA,"taks_test",....);
   }
 ```
-<br>
+***
 
 ### 3.4 队列（系统中协调任务之间数据通信的方式，感觉是异步的，也可以是同步的）
 系统同步是指： 不同任务之间的系统工作方式，协调资源，避免多个任务之间的数据竞争等冲突情况 <br>
@@ -237,7 +239,7 @@ void app_main(void){
 }
 
   ```
-<br>
+***
 
 ### 3.5 信号量 
 
@@ -308,7 +310,8 @@ void app_main(void){
 
 
  ```
-<br>
+***
+### 3.6 Event 事件
 
 
 
