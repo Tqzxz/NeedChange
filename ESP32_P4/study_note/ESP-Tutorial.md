@@ -80,39 +80,39 @@ QueueHandle_t my_queue = NULL;
 //自定义queue_data_t结构体类型，作为发送接收的数据类型
 typedef struct
 {
-  //只有一个int value
-  int value;
+   //只有一个int value
+   int value;
 }queue_data_t;
 
 //任务A while循环，当xQueueReceive从全局队列 my_queue中读取数据正常返回 pdTRUE之后，打印读取数据的value
 void taskA(void* param){
-  queue_data_t  data;
-  while(1){
-    if(pdTRUE == xQueueReceive(my_queue,&data,100)){
-      ESP_LOGI("queue received value:&d" , data.value);
+    queue_data_t  data;
+    while(1){
+      if(pdTRUE == xQueueReceive(my_queue,&data,100)){
+        ESP_LOGI("queue received value:&d" , data.value);
+      }
     }
-  }
 }
 
 //任务B while循环 初始化data_send发送的数据类型 value = 0， 每过1000个ticks，value自增1，然后继续发送
 void taskB(void* param){
-  queue_data_t data_send;
-  memset(&data_send,0,sizeof(queue_data_t));
-  while(1){
-    xQueueSend(my_queue,&data_send,100);
-    vTaskDelay(1000);
-    data_send.value++;
-  }
+    queue_data_t data_send;
+    memset(&data_send,0,sizeof(queue_data_t));
+    while(1){
+      xQueueSend(my_queue,&data_send,100);
+      vTaskDelay(1000);
+      data_send.value++;
+    }
 }
 
 void app_main(void){
 
-  //给全局my_queue创建实例
-  my_queue = XQueueCreate(10,sizeof(queue_data_t));
-  // 设置任务到1核，任务核
-  xTaskCreatePinnedToCore(taskA,'taskA',2048,NULL,3,NULL,1);
-  // 设置任务到1核，任务核
-  xTaskCreatePinnedToCore(taskB,'taskB',2048,NULL,3,NULL,1);
+    //给全局my_queue创建实例
+    my_queue = XQueueCreate(10,sizeof(queue_data_t));
+    // 设置任务到1核，任务核
+    xTaskCreatePinnedToCore(taskA,'taskA',2048,NULL,3,NULL,1);
+    // 设置任务到1核，任务核
+    xTaskCreatePinnedToCore(taskB,'taskB',2048,NULL,3,NULL,1);
 
 }
 
