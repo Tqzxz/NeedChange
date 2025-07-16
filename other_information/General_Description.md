@@ -23,11 +23,9 @@
 
 ## ESP-IDF and APIs Fully explaination <br>
 
-1. Intro and explain <br>
-
 > __The Aim for this part is to explain how some of ESP32 modules works and show the correct way of using their ESP APIs(SPI,MCPWM) and how build project and run project on a ESP32 board__<br>   
 
-2. 准备工作
+### 准备工作
   1. 需要有一个Linux系统/虚拟机环境, 第一步需要先在终端输入一些下载工具的指令<br>
    ``` linux
     sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
@@ -38,15 +36,13 @@
   <br>
   在github找到 ESP32 IDF 仓库https://github.com/espressif/esp-idf  之后，把这个项目复制到本地，并且一定要记住存放这个项目的路径，后续也会用到这个路径。 具体的复制方式可以选择直接访问Github来找这个项目，或者Linux终端上用git clone命令来  克隆项     目，都可以,只要下载好这个项目就可以。<br>
 
-3. 下载好了ESP-idf之后需要继续下载一些官方指定如果要使用ESp-idf所需要的工具，这些工具和下载方式官方已经写成了下载脚本，并放在了esp-idf这个项目中， 所以在linux系统下，我们需要从终端进入这个项目路径(cd) 然后执行这个脚本就可以了 
- ``` linux
-    ./install.sh esp32    #注意这里esp32表示的是你将要使用ESP32板子的型号，比如我用的基于ESP32 P4的开发板，那我就要换成esp32p4
-```  
+  3. 下载好了ESP-idf之后需要继续下载一些官方指定如果要使用ESp-idf所需要的工具，这些工具和下载方式官方已经写成了下载脚本，并放在了esp-idf这个项目中， 所以在linux系统下，我们需要从终端进入这个项目路径(cd) 然后执行这个脚本就可以了 
+   ``` linux
+      ./install.sh esp32    #注意这里esp32表示的是你将要使用ESP32板子的型号，比如我用的基于ESP32 P4的开发板，那我就要换成esp32p4
+  ```  
 <br>
 
-下载好所有工具之后，就可以到下一步了
-
-## 3. ESP32 项目构建过程和项目结构
+### ESP32 项目构建过程和项目结构
 
 1. 项目结构:<br>
 esp32项目中有三种重要的元素，源代码main, 组件库components, CMakeLists.txt文件。 一般也就这三个东西， 大概知道里面是写什么的，有什么用就行 <br>
@@ -65,10 +61,9 @@ esp32项目中有三种重要的元素，源代码main, 组件库components, CMa
             project(All_funcs_test)    
     ```
 
+### 外设组件 <br>
 
-
-## 4. 外设组件
-### MCPWM 
+#### MCPWM 
 
 Connection :
 
@@ -86,7 +81,7 @@ Connection :
 +-------------------+     +---------------+
 ```
 
-### Wifi
+#### Wifi
 
 wifi工作模式有 AP, STA, AP+STA,等等 <br>
 AP模式： AP模式下，设备被定义为无线网络中的节点，会向外广播SSID,允许其他设备对它进行连接(路由器就是AP模式下的应用)
@@ -133,6 +128,7 @@ Introduction of SPI:
 
     特点总结: 高速率，单主机多从机，同步双工
 
+***
 
 # FreeRTOS Tutorial
 
