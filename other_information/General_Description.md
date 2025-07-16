@@ -82,8 +82,6 @@ wifi工作模式有 AP, STA, AP+STA,等等 <br>
 AP模式： AP模式下，设备被定义为无线网络中的节点，会向外广播SSID,允许其他设备对它进行连接(路由器就是AP模式下的应用)
 STA模式：STA模式下，设备被定义为无线网络中的客户端/用户，可以进行AP扫描，并尝试连接，并且通过认证后可以通过AP设备访问其他设备,进行数据的交换
 
-
-
 include <stdio.h>
 include "nvs_flash.h"
 include "esp_wifi.h"
@@ -116,6 +114,69 @@ void app_main(void){
 
   SPI的传输是时钟同步的，并不是异步的, (2)和(3)信号线说明，信息传输是双向的, (4)则是说明 (2),(3) 传输线是 多个从机公用的， 只允许同一时刻只能和一个从机进行通信，但是可以切换. 特点总结: 高速率，单主机多从机，同步双工 <br>
 
+***
+#### 2.3.4 GPIO和PWM占空比调制:
+
+在程序中使用GPIO需要加入driver/gpio.h这个头文件。 下面是示例代码
+ ``` C
+#include "driver/gpio.h"
+#include <stdio.h>
+#include "freertos/task.h"
+#include "freertos/FreeRTOS.h"
+#include "driver/ledc.h"
+
+#define LED_GPIO GPIO_NUM_17
+
+void taskA(void* param)
+{
+    int gpio_level = 0;
+    while(1){
+        gpio_level = gpio_level?0:1;
+        vTaskDelay(pdMS_TO_TICKS(500));
+        gpio_set_level(LED_GPIO,gpio_level);
+    }
+}
+
+void app_main(void)
+{
+    gpio_config_t led_cfg = {
+        .pin_bit_mask = (1<<LEF_GPIO),  // 位掩码
+        .pull_up_en   = GPIO_PULLUP_DISABLE,
+        .pull_down_en = GPIO_PULLDOWN_DISABLE,
+        .mode         = GPIO_MODE_OUTPUT,
+        .intr_type    = GPIO_INTR_DISABLE 
+    };
+    gpio_config(&led_cfg);
+    // xTaskCreatePinnedToCore(....);
+
+//上面代码是控制GPIO引脚输出模式的输出电压的示例代码，下面是通过PWM占空比调制的方式使得输出PWM波形，让LED灯产生渐变亮度
+
+//初始化定时器
+    ledc_timer_config_t led_timer= {
+        .speed_mode = LED_LOW_SPEED_MODE,
+        .timer_num  = LEDC_TIMER_0,
+        .clk_cfg    = LEDC_AUTO_CLK,
+        .freq_hz    = 5000,
+        .duty_resolution  = LEDC_TIMER_13_BIT
+    };
+    ledc_timer_config(&lef_timer);
+
+    ledc_channel_config_t ledc_channel = {
+        .speed_mode = LEDC_LOW_SPEED,
+        .channel    = 0,
+        .timer_sel  = LEDC_TIMER_0,
+        .gpio_num   = LED_GPIO,
+        .duty       = 0,
+        .intr_type  = LEDC_INTR_DISABLE
+    };
+    ledc_channel_config(&ledc_channel);
+
+    ledc_fade_func_install(0);
+    ledc_set_fade_with_time(LEDC_LOW_SPEED,LEDC_CHANNEL_0,0,2000);
+    ledc_fade_start(LEDC_LOW_SPEED,LEDC_CHANNEL_0,LEDC_FADE_NO_WAIT);
+    // 下面再写回调函数,注册回调函数... emm我觉得吧 其实ledc.h这个库和PWM库的内容真差不多，有定时器，通道，等等什么的， 其实自己写呼吸灯，不需要这么复杂的吧
+}
+ ```
 ***
 
 ## 3. FreeRTOS Tutorial
@@ -176,7 +237,7 @@ DRAM也叫 Dynamic random access memo <br>
 ```
 ***
 
-### 3.4 队列（系统中协调任务之间数据通信的方式，感觉是异步的，也可以是同步的）
+### 3.4 任务间协调通信方式(1/4) 队列（系统中协调任务之间数据通信的方式，感觉是异步的，也可以是同步的）
 系统同步是指： 不同任务之间的系统工作方式，协调资源，避免多个任务之间的数据竞争等冲突情况 <br>
 
   关于队列的系统函数，所有到目前为止和下面提到的函数都可以在espressif乐鑫官方找到函数完全的定义 <br>
@@ -241,7 +302,7 @@ void app_main(void){
   ```
 ***
 
-### 3.5 信号量 
+### 3.5 任务间协调通信方式(2/4) 信号量 
 
 信号量形象地解释： 现在有一个全局雨伞池，有一定数量的雨伞。 每个任务可以向雨伞池中尝试取出雨伞。 当池中没有雨伞时，需要等待有人归还雨伞才可再取走 <br>
 雨伞就是信号量. 信号量又分为二进制，计数，互斥类型的信号量，一一解释 <br>
@@ -311,7 +372,19 @@ void app_main(void){
 
  ```
 ***
-### 3.6 Event 事件
+### 3.6 任务间协调通信方式(3/4) Event 事件组 和 任务间协调通信方式(4/4) 直达任务通知
+
+1. 事件组
+ 事件组是由一系列个事件位组成的，每一个事件位用一个编号来标识， 事件位用来表示某个事件是否发生， 如果发生事件位的值为1，反之为0. emm 感觉就是一个flag数组，每一个flag的值都表示当前索引所代表的事件是否发生 <br>
+ ``` C
+ //....
+
+//....
+```
+ 
+3. 直达任务通知
+
+
 
 
 
