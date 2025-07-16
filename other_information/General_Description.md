@@ -1,5 +1,5 @@
 
-# general description：
+# Project Details in everything:
   车子描述： 
   
   (1) 车底盘由具有车轮编码器的电机驱动履带，橡胶轮胎， 可以进行灵活的移动（直线，直角，斜线，曲线）
