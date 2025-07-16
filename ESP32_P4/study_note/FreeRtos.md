@@ -127,9 +127,31 @@ void app_main(void){
 (B) 计数信号量，   表示信号量中有多个信号量  <br>
 (C) 互斥锁信号量， 和二进制信号量类似， 但是实现了优先级的继承。  <br>
 
+互斥锁的优先级继承: 三个任务(H,M,L)优先级依次下降， 当L先运行并抢占了互斥锁信号量之后， 时间切片任务调度器继续选择下一个时间片要执行的任务，为任务H, 任务H依赖于互斥信号量，因此此次任务A被阻塞 <br>
+导致任务调度器接下来选择的任务是M， 因为M 优先级高于L, 那么问题就是 任务A需要等待任务L执行到释放锁的代码， 但是任务M一直在抢占运行时间片。 导致M任务变相的拖慢了任务A的执行 <br>
+解决方法就是当高优先级任务向互斥锁请求锁失败后，将当前拥有锁的任务优先级提升到高优先级任务的等级，知道释放锁之后再降低为原来的优先级。<br>
 
+ ``` C
+//关于信号量的API函数
+// 1. 创建二进制信号量
+SemaphoreHandle_t xSemaphoreCreateBinary(void); 创建成功后，返回一个信号量句柄
 
+// 2. 创建计数信号量
+SemaphoreHandle_t xSemaphoreCreateCounting(void);
 
+// 3. 获取信号爱玲
+xSemaphoreTake(param1,param2);  //param1: 信号量句柄 SemaphoreHandle_t , param2: 等待时间(in ticks)
+
+// 4. 释放信号量
+xSemaphoreGive(param1);         //param1: 信号量句柄 SemaphoreHandle_t
+
+// 5. 删除信号量
+void xSemaphoreDelete(SemaphoreHandle_t sema);
+
+// 6. 互斥锁相关
+SemaphoreHandle_t xSemaphoreCreateMutex(void);
+
+ ```
 
 
 
