@@ -47,8 +47,19 @@ DRAM也叫 Dynamic random access memo <br>
   }
 ''' <br>
 ## 4. 队列（系统同步）
-系统同步是指： 不同任务之间的系统工作方式，协调资源，避免多个任务之间的数据竞争等冲突情况
+系统同步是指： 不同任务之间的系统工作方式，协调资源，避免多个任务之间的数据竞争等冲突情况 <br>
 
+  关于队列的系统函数，所有到目前为止和下面提到的函数都可以在espressif乐鑫官方找到函数完全的定义 <br>
+
+  QueueHandle_t xQueueCreate(param1, param2);     //创建队列函数                param1: UBaseType_t uxQueueLength 队列容量  param2: UBaseType_t uxltemSize 队列元素占内存的大小(in byte) <br>
+  BaseType_t xQueueSend(param1, param2, param3);  //向指定队列的头部发送数据     param1: QueueHandle_t xQueue  指定队列的句柄 param2: const void* content 要发送的消息指针 param3: TickType_t WaitTicks 等待时间(in tick)   <br>  
+  BaseType_t xQueueSendToBack();                  //向指定队列的尾部发送数据     参数设置和上面一样 <br>
+  BaseType_t xQueueReceive(param1,param2,param3); //向指定队列接收数据          param1: QueueHandle_t xQueue  指定队列的句柄 param2: void* buffer 接收消息缓冲区 param3: TickType_t WaitTicks 等待时间 <br>
+  BaseType_t xQueueSendFromISR();                 //向队列发送信息的中断版本 <br>
+
+  
+  
+  
 
 
 
