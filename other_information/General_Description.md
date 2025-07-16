@@ -107,21 +107,14 @@ void app_main(void){
 }
 
 ***
-Introduction of SPI:
+#### 2.3.3 SPI:
+传输速率很快的设备间通信方式。 由一台被定义为主机( Master )的设备主导SPI传输的通道。通道连接1个或者多个从机。 通道由4根线组成
+  (1) SCLK    : 同步时钟信号 <br>
+  (2) MOSI    : 主机传输信息到从机的信号线 <br>
+  (3) MISO    : 从机传输信息到主机的信号线 <br>
+  (4)  CS     : 片选信号( 从机选择信号 )  <br>
 
-    传输速率很快的设备间通信方式。 由一台被定义为主机( Master )的设备主导SPI传输的通道。
-    通道连接1个或者多个从机。 通道由4根线组成
-
-    (1) SCLK    : 同步时钟信号
-    (2) MOSI    : 主机传输信息到从机的信号线
-    (3) MISO    : 从机传输信息到主机的信号线
-    (4)  CS     : 片选信号( 从机选择信号 )
-
-    同步时钟信号由主机定义， 反过来看，说明SPI的传输是时钟同步的，并不是异步的
-    (2)和(3)信号线说明，信息传输是双向的
-    (4)则是说明 (2),(3) 传输线是 多个从机公用的， 只允许同一时刻只能和一个从机进行通信，但是可以切换
-
-    特点总结: 高速率，单主机多从机，同步双工
+  SPI的传输是时钟同步的，并不是异步的, (2)和(3)信号线说明，信息传输是双向的, (4)则是说明 (2),(3) 传输线是 多个从机公用的， 只允许同一时刻只能和一个从机进行通信，但是可以切换. 特点总结: 高速率，单主机多从机，同步双工 <br>
 
 ***
 
@@ -278,5 +271,68 @@ void xSemaphoreDelete(SemaphoreHandle_t sema);
 // 6. 互斥锁相关
 SemaphoreHandle_t xSemaphoreCreateMutex(void);
 
+//下面是示例代码
+#include "freertos/task.h"
+#include "freertos/semphr.h"
+#include "driver/gpio.h"
+#include "esp_log.h"
+#include "dh11.h"
+
+SemaphoreHandle_t my_binary_sema;        // 声明全局二进制信号量
+
+void taskA(void* param){
+    while(1){
+        // 每隔1000个tick时间，taskA任务释放全局二进制信号量
+        xSemaphoreGive(my_binary_sema);
+        vaTaskDelay(1000);
+    }
+}
+
+void taskB(void* param){
+    while(1){
+        if(pdTRUE == xSemaphoreTake(my_binary_sema,portMAX_DELAY)){
+            ESP_LOGI("taskB take binary sema successful");
+        }
+    }
+}
+
+void app_main(void){
+
+    my_binary_sema = xSemaphoreCreateBinary();
+    // 设置任务到1核，任务核
+    xTaskCreatePinnedToCore(taskA,'taskA',2048,NULL,3,NULL,1);
+    // 设置任务到1核，任务核
+    xTaskCreatePinnedToCore(taskB,'taskB',2048,NULL,3,NULL,1);
+
+}
+
+
  ```
 <br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
