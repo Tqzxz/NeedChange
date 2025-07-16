@@ -139,7 +139,7 @@ SemaphoreHandle_t xSemaphoreCreateBinary(void); 创建成功后，返回一个�
 // 2. 创建计数信号量
 SemaphoreHandle_t xSemaphoreCreateCounting(void);
 
-// 3. 获取信号爱玲
+// 3. 获取信号量
 xSemaphoreTake(param1,param2);  //param1: 信号量句柄 SemaphoreHandle_t , param2: 等待时间(in ticks)
 
 // 4. 释放信号量
@@ -152,6 +152,8 @@ void xSemaphoreDelete(SemaphoreHandle_t sema);
 SemaphoreHandle_t xSemaphoreCreateMutex(void);
 
  ```
+
+
 
 
 
