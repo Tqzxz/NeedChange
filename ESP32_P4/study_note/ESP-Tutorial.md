@@ -11,10 +11,14 @@ DRAM也叫 Dynamic random access memo <br>
 
 ## 2. Intro
   freeRtos中是按照执行任务来执行模块化程序的， 任务存在一下状态： <br>
-  (A) 运行状态 <br>
-  (B) 准备状态 <br>
-  (C) 阻塞状态 <br>
-  (D) 挂起状态 <br>
+  (A) 运行状态 
+  <br>
+  (B) 准备状态 
+  <br>
+  (C) 阻塞状态
+  <br>
+  (D) 挂起状态 
+  <br>
 
   在ESP-idf中， 我们可以使用 xTaskCreatePinnnedToCore() 这个函数来创建一个任务
   函数参数为 1. 任务函数指针    <br>
