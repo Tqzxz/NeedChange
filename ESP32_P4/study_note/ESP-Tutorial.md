@@ -34,7 +34,8 @@ DRAM也叫 Dynamic random access memo <br>
   include "freertos/task.h"
   include "freertos/FreeRTOS.h"
   incldue "esp_log.h"
-'''C
+  
+``` C
   void taskA(void* params){
     while(1){
         ESP_LOGI("...");
@@ -45,7 +46,8 @@ DRAM也叫 Dynamic random access memo <br>
   void app_main(){
     xTaskCreatePinnedToCore(taskA,"taks_test",....);
   }
-''' <br>
+``` <br>
+
 ## 4. 队列（系统同步）
 系统同步是指： 不同任务之间的系统工作方式，协调资源，避免多个任务之间的数据竞争等冲突情况 <br>
 
