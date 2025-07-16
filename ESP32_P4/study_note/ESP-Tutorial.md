@@ -29,17 +29,18 @@ DRAM也叫 Dynamic random access memo <br>
             6. 任务返回句柄       可以理解为是任务对象， 这个对象中包含一些成员信息，后续可以通过引用这个对象来修改这个任务的属性  <br>
             7. 任务分配核(0/1)  <br>
 ## 3. freeRtos的一些常见函数 
-  (A) XTaskGetTickCount()                            : 获取当前系统的节拍数
-  (B) vTaskDelayUntil(&系统节拍， int 节拍数)         ： 根据系统节拍，精确延时
-  (C) VTaskDelay()                                   : 简单延时, 执行后，任务将会成为挂起状态，参数xTicksToDelay表示延时多少个节拍
-  (D) pdMS_TO_TICKS()                                ： 把ms毫秒数转换为系统节拍数
+  (A) XTaskGetTickCount()                            : 获取当前系统的节拍数      <br>
+  (B) vTaskDelayUntil(&系统节拍， int 节拍数)         ： 根据系统节拍，精确延时    <br>
+  (C) VTaskDelay()                                   : 简单延时, 执行后，任务将会成为挂起状态，参数xTicksToDelay表示延时多少个节拍  <br>
+  (D) pdMS_TO_TICKS()                                ： 把ms毫秒数转换为系统节拍数  <br>
 
-  test_task.c
+``` C
+  test_task.c 
   include "freertos/task.h"
   include "freertos/FreeRTOS.h"
   incldue "esp_log.h"
   
-``` C
+
   void taskA(void* params){
     while(1){
         ESP_LOGI("...");
