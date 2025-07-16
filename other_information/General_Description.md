@@ -2,7 +2,7 @@
 # Project Contents:
 
 ***
-## Project Description <br>
+## 1. Project Description <br>
   
   (1) 车底盘由具有车轮编码器的电机驱动履带，橡胶轮胎， 可以进行灵活的移动（直线，直角，斜线，曲线）                                                         <br>
   (2）目前计划的车身可以控制： (1)底座电机的控制 （2）车前方旋转齿轮电机  （3）其他装置（需要想想怎么设计）（4）飞行物射击器（需要想想怎么设计）                <br>
@@ -21,28 +21,27 @@
   (1) 阶段制  可以有 (1)擂台对战阶段，胜负规则：(1)出赛场范围 (2)被撞击侧翻 （3）损耗度100%  （2）护送目标阶段 等等 <br>
 ***
 
-## ESP-IDF and APIs Fully explaination <br>
+## 2. ESP-IDF and APIs Fully explaination <br>
 
 > __The Aim for this part is to explain how some of ESP32 modules works and show the correct way of using their ESP APIs(SPI,MCPWM) and how build project and run project on a ESP32 board__<br>   
 
-### 准备工作
+### 2.1 准备工作
   1. 需要有一个Linux系统/虚拟机环境, 第一步需要先在终端输入一些下载工具的指令<br>
    ``` linux
     sudo apt-get install git wget flex bison gperf python3 python3-pip python3-venv cmake ninja-build ccache libffi-dev libssl-dev dfu-util libusb-1.0-0
   ```  
   下载必要工具比如 python3, cmake, venv 等等， 需要注意 Cmake需要3.16及以上的版本，老版本Linux系统运行指令可能下载的是老版本Cmake, 需要先升级系统或者直接下载Cmake3, 有些工具比如python3大概率Linux系统是自带，有些工具有就可以不用下，怎么  系统升级，查看是否下载了某些工具这些指令上网一搜就有<br>
 
-  2. 下载好了这些工具之后，就可以来下载ESP32官方提供的开发工具 ESP-IDF 了，这个工具里面有非常多的内容， 其中包括ESP32底层的源代码，编译你项目的脚本程序，等等。这个项目就是从ESP32底层源码向上抽象了一层，将一些可以合并的函数合并成一个功能。  <br>
-  <br>
-  在github找到 ESP32 IDF 仓库https://github.com/espressif/esp-idf  之后，把这个项目复制到本地，并且一定要记住存放这个项目的路径，后续也会用到这个路径。 具体的复制方式可以选择直接访问Github来找这个项目，或者Linux终端上用git clone命令来  克隆项     目，都可以,只要下载好这个项目就可以。<br>
+  2. 下载好了这些工具之后，就可以来下载ESP32官方提供的开发工具 ESP-IDF 了，这个工具里面有非常多的内容， 其中包括ESP32底层的源代码，编译你项目的脚本程序，等等。这个项目就是从ESP32底层源码向上抽象了一层，将一些可以合并的函数合并成一个功能。在github找到ESP32IDF仓库https://github.com/espressif/esp-idf之后，把这个项目复制到本地，并且一定要记住存放这个项目的路径，后续也会用到这个路径。具体的复制方式可以选择直接访问Github来找这个项目，或者Linux终端上用git clone命令来克隆项目，都可以,只要下载好这个项目就可以。
+<br>
 
-  3. 下载好了ESP-idf之后需要继续下载一些官方指定如果要使用ESp-idf所需要的工具，这些工具和下载方式官方已经写成了下载脚本，并放在了esp-idf这个项目中， 所以在linux系统下，我们需要从终端进入这个项目路径(cd) 然后执行这个脚本就可以了 
+  4. 下载好了ESP-idf之后需要继续下载一些官方指定如果要使用ESp-idf所需要的工具，这些工具和下载方式官方已经写成了下载脚本，并放在了esp-idf这个项目中， 所以在linux系统下，我们需要从终端进入这个项目路径(cd) 然后执行这个脚本就可以了 
    ``` linux
       ./install.sh esp32    #注意这里esp32表示的是你将要使用ESP32板子的型号，比如我用的基于ESP32 P4的开发板，那我就要换成esp32p4
   ```  
 <br>
 
-### ESP32 项目构建过程和项目结构
+### 2.2 ESP32 项目构建过程和项目结构
 
 1. 项目结构:<br>
 esp32项目中有三种重要的元素，源代码main, 组件库components, CMakeLists.txt文件。 一般也就这三个东西， 大概知道里面是写什么的，有什么用就行 <br>
@@ -61,7 +60,7 @@ esp32项目中有三种重要的元素，源代码main, 组件库components, CMa
             project(All_funcs_test)    
     ```
 
-### 外设组件 <br>
+### 2.3 外设组件 <br>
 
 #### MCPWM 
 
@@ -130,9 +129,9 @@ Introduction of SPI:
 
 ***
 
-# FreeRTOS Tutorial
+## 3. FreeRTOS Tutorial
 
-## 1. ESP存储硬件结构
+### 1. ESP存储硬件结构
 DRAM也叫 Dynamic random access memo <br>
 动态随机访问内存，数字电路中有学过这种电路，特点是需要不断刷新电压水平来保存信息，断电不保护数据。优点是结构简单，不需要太多晶体管，相比于SRAM. <br>
 
@@ -141,7 +140,7 @@ DRAM也叫 Dynamic random access memo <br>
 
 2. const关键字表示常量， 所以程序中没有用const关键字描述的变量都属于非常量， 而用户初始化非0的全局和局部变量会被归于非常量静态数据，相反初始化为0的归于0初始化数据
 
-## 2. Intro
+### 2. Intro
   freeRtos中是按照执行任务来执行模块化程序的， 任务存在一下状态： <br>
   (A) 运行状态 
   <br>
@@ -160,7 +159,7 @@ DRAM也叫 Dynamic random access memo <br>
             5. 任务优先级         取值范围是 0 - (configMAX-PRIORITIES-1)  <br>
             6. 任务返回句柄       可以理解为是任务对象， 这个对象中包含一些成员信息，后续可以通过引用这个对象来修改这个任务的属性  <br>
             7. 任务分配核(0/1)  <br>
-## 3. freeRtos的一些常见函数 
+### 3. freeRtos的一些常见函数 
   (A) XTaskGetTickCount()                            : 获取当前系统的节拍数      <br>
   (B) vTaskDelayUntil(&系统节拍， int 节拍数)         ： 根据系统节拍，精确延时    <br>
   (C) VTaskDelay()                                   : 简单延时, 执行后，任务将会成为挂起状态，参数xTicksToDelay表示延时多少个节拍  <br>
@@ -186,7 +185,7 @@ DRAM也叫 Dynamic random access memo <br>
 ```
 <br>
 
-## 4. 队列（系统中协调任务之间数据通信的方式，感觉是异步的，也可以是同步的）
+### 4. 队列（系统中协调任务之间数据通信的方式，感觉是异步的，也可以是同步的）
 系统同步是指： 不同任务之间的系统工作方式，协调资源，避免多个任务之间的数据竞争等冲突情况 <br>
 
   关于队列的系统函数，所有到目前为止和下面提到的函数都可以在espressif乐鑫官方找到函数完全的定义 <br>
@@ -251,7 +250,7 @@ void app_main(void){
   ```
 <br>
 
-## 5. 信号量 
+### 5. 信号量 
 
 信号量形象地解释： 现在有一个全局雨伞池，有一定数量的雨伞。 每个任务可以向雨伞池中尝试取出雨伞。 当池中没有雨伞时，需要等待有人归还雨伞才可再取走 <br>
 雨伞就是信号量. 信号量又分为二进制，计数，互斥类型的信号量，一一解释 <br>
