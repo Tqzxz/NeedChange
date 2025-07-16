@@ -35,10 +35,10 @@ DRAM也叫 Dynamic random access memo <br>
   (D) pdMS_TO_TICKS()                                ： 把ms毫秒数转换为系统节拍数  <br>
 
 ``` C
-  test_task.c 
-  include "freertos/task.h"
-  include "freertos/FreeRTOS.h"
-  incldue "esp_log.h"
+  //test_task.c 
+  #include "freertos/task.h"
+  #include "freertos/FreeRTOS.h"
+  #incldue "esp_log.h"
   
 
   void taskA(void* params){
