@@ -1,4 +1,9 @@
 
+### To-do list
+- [ ] 2 episode Freertos
+- [ ] 学习一个外设
+
+
 # Project Contents:
 
 ***
