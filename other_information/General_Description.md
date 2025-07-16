@@ -20,6 +20,15 @@
   对战机制： <br>
   (1) 阶段制  可以有 (1)擂台对战阶段，胜负规则：(1)出赛场范围 (2)被撞击侧翻 （3）损耗度100%  （2）护送目标阶段 等等 <br>
 
+``` C
+/*
+  LinkeFiniteStateMachine  statecode 00: 待机状态，关闭所有可以关掉的功能
+                           statecode 01: 启动运动模式，开启一些必要的监听，响应等功能，部分功能关闭
+                           statecode 02: 启动竞技模式，开启所有功能
+
+*/
+```
+
 ## 2. ESP-IDF and APIs Fully explaination <br>
 
 > __The Aim for this part is to explain how some of ESP32 modules works and show the correct way of using their ESP APIs(SPI,MCPWM) and how build project and run project on a ESP32 board__<br>   
