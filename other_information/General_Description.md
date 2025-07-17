@@ -130,29 +130,55 @@ void app_main(void){
 
 ***
 #### 2.3.4 GPIO和PWM占空比调制:
-
-在程序中使用GPIO需要加入driver/gpio.h这个头文件。 下面是示例代码
  ``` C
+/*
+在程序中使用GPIO需要加入driver/gpio.h这个头文件。 下面是示例代码
+控制一个外设的大概过程就是 1.先配置一些外设需要的硬件和参数，在配置过程中，如果需要，有些硬件的配置需要其他已经配置好的硬件 2. 启动 就这么简单
+LEDC控制的配置流程，官方来说，最好按照以下步骤来配置
+(1) 配置定时器， 就有疑问了，控制LED，定时器用来干什么？ 定时器其实是和PWM挂钩的
+(2) 配置通道， 这里这个通道有点像什么呢， 就是central unit， 它接收定时器的信号，并输出PWM信号
+(3) 配置好定时器，和通道，理论上，用户定义的GPIO引脚已经可以输出一个恒定占空比的PWM信号了， 为了达到呼吸灯的效果，用户有两个选择
+  一个是通过动态修改输出的PWM占空比来实现 大概就是 （1）ledc_set_duty (2) ledc_update_duty 这两个函数
+  一个是通过硬件设置 fade, 示例代码中介绍的就是这种方式。 fade硬件可以从官方结构图中看出是和通道所连接的，所以每个通道都可以有一个fade硬件
+*/
 #include "driver/gpio.h"
 #include <stdio.h>
 #include "freertos/task.h"
 #include "freertos/FreeRTOS.h"
 #include "driver/ledc.h"
 
+
+#define FULL_EV_BIT   BIT0
+#define EMPTY_EV_BIT  BIT1
+static EventGroupHandle_t ledc_event_handle;  //ledc完成呼吸灯事件组句柄
+
 #define LED_GPIO GPIO_NUM_17
 
-void taskA(void* param)
+bool IRAM_ATTR ledc_finish_cb(const ledc_cb_param_t* param, void* user_arg){
+    BaseType_t taskWoken;
+    if(param->duty){
+        xEventGroupSetBitsFromISR(ledc_event_handle,FULL_EV_BIT,&taskWoken);
+    }else{
+        xEventGroupSetBitsFromISR(ledc_event_handle,EMPTY_EV_BIT,&taskWoken);
+    }
+}
+
+void led_run_task(void* param)
 {
     int gpio_level = 0;
     while(1){
-        gpio_level = gpio_level?0:1;
-        vTaskDelay(pdMS_TO_TICKS(500));
-        gpio_set_level(LED_GPIO,gpio_level);
+        ev = xEventGroupWaitBits(ledc_event_handle,FULL_EV_BIT|EMPTY_EV_BIT,pdFALSE,pdMS_TO_TICKS(5000));
+        if(){
+            ...
+        }else{
+            ...
+        }
     }
 }
 
 void app_main(void)
 {
+  // 先初始化配置GPIO引脚
     gpio_config_t led_cfg = {
         .pin_bit_mask = (1<<LEF_GPIO),  // 位掩码
         .pull_up_en   = GPIO_PULLUP_DISABLE,
@@ -175,6 +201,7 @@ void app_main(void)
     };
     ledc_timer_config(&lef_timer);
 
+//初始化通道
     ledc_channel_config_t ledc_channel = {
         .speed_mode = LEDC_LOW_SPEED,
         .channel    = 0,
@@ -185,10 +212,18 @@ void app_main(void)
     };
     ledc_channel_config(&ledc_channel);
 
+// 为了使用fade硬件功能，第一步需要先下载fade
     ledc_fade_func_install(0);
+// 然后进行fade设置函数( 官方给出了三个设置函数，选择一个就好）
     ledc_set_fade_with_time(LEDC_LOW_SPEED,LEDC_CHANNEL_0,0,2000);
+// 最后启动fade
     ledc_fade_start(LEDC_LOW_SPEED,LEDC_CHANNEL_0,LEDC_FADE_NO_WAIT);
-    // 下面再写回调函数,注册回调函数... emm我觉得吧 其实ledc.h这个库和PWM库的内容真差不多，有定时器，通道，等等什么的， 其实自己写呼吸灯，不需要这么复杂的吧
+ // 下面再写回调函数,注册回调函数... emm我觉得吧 其实ledc.h这个库和PWM库的内容真差不多，有定时器，通道，等等什么的， 其实自己写呼吸灯，不需要这么复杂的吧
+    ledc_cbs_t cbs = {
+        .fade_cb = ledc_finish_cb
+    };
+    ledc_cb_register(LEDC_LOW_SPEED,LEDC_CHANNEL_0,&cbs,NULL);
+    xTaskCreatePinnedToCore(led_run_task,"led",2048,NULL,3,NULL,1);
 }
  ```
 ***
