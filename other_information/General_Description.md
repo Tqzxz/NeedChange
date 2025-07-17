@@ -91,11 +91,20 @@ Connection :
 ```
 ***
 #### 2.3.2 Wifi
-
 wifi工作模式有 AP, STA, AP+STA,等等 <br>
 AP模式： AP模式下，设备被定义为无线网络中的节点，会向外广播SSID,允许其他设备对它进行连接(路由器就是AP模式下的应用)
 STA模式：STA模式下，设备被定义为无线网络中的客户端/用户，可以进行AP扫描，并尝试连接，并且通过认证后可以通过AP设备访问其他设备,进行数据的交换
+```C
+/*
+Wifi热点工作流程 AP 模式为例
+    首先整体通信框架的上层是我们的应用程序 app 
+    中层是通信接口协议栈 LwIP stack
+    底层是wifi 驱动程序
 
+    
+
+*/
+/*
 include <stdio.h>
 include "nvs_flash.h"
 include "esp_wifi.h"
@@ -106,18 +115,27 @@ include "esp_err.h"
 void app_main(void){
 
   //(1). 初始化 nvs, 就是一些联网配置
-  ESP_ERROR_CHECK(nvs_flash_init());     
-
+  // 为什么需要nvs, 主要是为了保存SSID 密码到nvs, esp-idf会再系统下一次上电用nvs中的这个来连接wifi
+    ESP_ERROR_CHECK(nvs_flash_init());    
   //(2). 初始化TCP/IP协议栈
-  ESP_ERROR_CHECK(esp_netif_init());
+    ESP_ERROR_CHECK(esp_netif_init());
 
   //(3). 创建事务循环
-  ....
+    ESP_ERROR_CHECK(esp_event_loop_create_default());
 
   //(4). 创建STA对象，进而才能使用STA通信模式
+    esp_netif_create_wifi_sta();
+
+    wifi_init_config_t cfg = WIFI_INIT_CONFIG_DEFAULT();
+    ESP_ERROR_CHECK(esp_wifi_init(&cfg));
+
+    // (5) 注册事件响应
+    esp_event_handler_register(WIFI_EVENT,ESP_EVENT_ANY_ID,wifi_event_handle,NULL);
+  
+*/
 
 }
-
+```
 ***
 #### 2.3.3 SPI:
 传输速率很快的设备间通信方式。 由一台被定义为主机( Master )的设备主导SPI传输的通道。通道连接1个或者多个从机。 通道由4根线组成
@@ -426,38 +444,26 @@ void app_main(void){
 1. 事件组
  事件组是由一系列个事件位组成的，每一个事件位用一个编号来标识， 事件位用来表示某个事件是否发生， 如果发生事件位的值为1，反之为0. emm 感觉就是一个flag数组，每一个flag的值都表示当前索引所代表的事件是否发生 <br>
  ``` C
- //....
-
-//....
+ /*
+    事件组常用API
+    1. EventGroupHandlr_t xEventCreate(void) //创建事件组对象，返回
+    2. EventBits_t xEventGroupWaitBits(param1,param2,param3,param4,param5);
+      //param1: EventGroupHandle_t 事件组句柄  param2: const EventBits_t 等待的事件位  param3:BaseType_t 是否清除事件位  param4: BaseType_t 是否等待所有  param5: 等待时间
+      //事件组中采用的是EventBits_t这个类型的8或者24位（通常24）的无符号整型数据来保存8或者24个事件位。 采用16进制表示方式。 一般采用下面这样的方法来定义一个事件位，以及判定等待事件位逻辑
+      #define BIT_0 (1UL << 0)
+      #define BIT_1 (1UL << 1)  // 1UL << 十进制位 这样提高了可读性
+      为了同时判定多个事件位， 我们可以用 | 逻辑或运算来表示 比如同时等待事件1，事件2就写 (BIT_0 | BIT_1)
+      当等待条件在最大等待时间之前满足时，函数返回 clear操作前的事件组的24位值， 然后我们可以通过用 & 与运算来获得关注的事件位，比如这里我们好奇事件0，事件1
+      就可以 ux_bits = xEventGroupWaitBits(...)
+            if (uxbits & BIT_0) != 0 ...
+   事件组同步函数 例子
+    xEventGroupSync(
+            xEventBits,     /* The event group being tested. */
+            TASK_1_BIT,     /* The bits within the event group to wait for. */
+            ALL_SYNC_BITS,  /* The bits within the event group to wait for. */
+            portMAX_DELAY); /* Wait a maximum of 100ms for either bit to be set. */
+    同步函数和等待函数类似，执行到同步函数时，如果没有满足等待条件会进入阻塞状态等待。 不同的是，执行到这里，函数会自动将这个任务事件位设置为1， 并进入等待，等待条件是其他相关的所有同步任务也执行到了这个函数
+    最后执行到这里的同步函数，会唤醒所有同步任务，并且自动会把所有任务的事件位clear掉
+*/
 ```
- 
-3. 直达任务通知
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
