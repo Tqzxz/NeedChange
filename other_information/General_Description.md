@@ -31,6 +31,8 @@
                            statecode 01: 启动运动模式，开启一些必要的监听，响应等功能，部分功能关闭
                            statecode 02: 启动竞技模式，开启所有功能
 
+  上电启动： 
+
 */
 ```
 
@@ -101,7 +103,18 @@ Wifi热点工作流程 AP 模式为例
     中层是通信接口协议栈 LwIP stack
     底层是wifi 驱动程序
 
-    
+//1.
+    esp_netif_init()                              启动了 IwIP 协议栈 task任务
+    esp_event_loop_create_default()               创建了 event 任务
+    esp_wifi_init()                               初始化wifi 驱动程序
+//2. 创建事件处理函数
+    esp_event_handlder_instance_register(...);    定义wifi_event_handle处理函数，
+
+//3. 配置
+    wifi_config_t wifi_config = {}                创建wifi驱动的配置结构体                                        
+    esp_wifi_start()                              启动wifi驱动， 启动之后， 驱动程序会发送wifi_event_start，以及后续其他可能出现的事件到wifi_event事件处理器
+
+
 
 */
 /*
