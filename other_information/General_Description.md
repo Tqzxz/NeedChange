@@ -31,7 +31,22 @@
                            statecode 01: 启动运动模式，开启一些必要的监听，响应等功能，部分功能关闭
                            statecode 02: 启动竞技模式，开启所有功能
 
-  上电启动： 
+  上电启动：
+
+  SPI发送字段：
+      {
+          int motor1_power_output;   // 车轮1输出功率 in percentage% [0%,100%]  
+          int motor2_power_output;   // 车轮2输出功率 in percentage% [0%,100%]
+          int brake0_power;          // 刹车0程度    in percentage% [0%,100%]
+          int brake1_power;          // 刹车1程度    in percentage% [0%,100%]
+          float direction;           // 转向角度     取值范围[+-90 degree]
+      }
+  SPI接收字段：
+      {
+          motor1_encoder;
+          motor2_encoder;
+          imu_infor;
+      }
 
 */
 ```
