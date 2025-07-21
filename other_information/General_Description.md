@@ -489,4 +489,47 @@ void app_main(void){
     最后执行到这里的同步函数，会唤醒所有同步任务，并且自动会把所有任务的事件位clear掉
 */
 ```
+***
+### 3.7 ESP32里面常用的任务通信方式 -> 底层封装了信号量和事件组的概念，用事件循环(Event Loop)来完成通信 
+   
+ ``` C
+ /*
+1. 事件循环
+     事件循环是一个封装了信号量和事件组概念的中间件。 当项目逻辑变得复杂之后，使用事件循环相比与事件组会更加的简洁。
+     <1> 事件循环可以看作是一个对象， 通过对这个事件循环声明一些事件后。 我们可以为不同的组件对这些事件注册回调函数
+     <2> 当对应事件发生后， 事件循环会通知所有注册需要这个事件的组件，并执行它们自己的回调函数
+
+   事件 1      |                                      |   组件 call back function 1
+   事件 2      |                                      |   组件 call back function 2
+   事件 3      |------------> Event Loop -----------> |   组件 call back function 3
+     .         |                                      |             .
+     .         |                                      |             .
+     .         |                                      |             .
+
+
+官方提供的事件循环函数 API
+  <1> 创建一个事件循环对象  esp_err_t esp_event_loop_create(const esp_event_loop_args_t *event_loop_args, esp_event_loop_handle_t *event_loop)
+  <2> 删除一个事件循环对象  esp_err_t esp_event_loop_delete(esp_event_loop_handle_t event_loop)
+  <3> 创建一个默认设置的事件循环对象  esp_err_t esp_event_loop_create_default(void)
+  <4> 默认设置删除         esp_err_t esp_event_loop_delete_default(void)
+  <5> esp_err_t esp_event_loop_run(esp_event_loop_handle_t event_loop, TickType_t ticks_to_run)
+
+      Dispatch events posted to an event loop.
+      This function is used to dispatch events posted to a loop with no dedicated task, i.e. task name was set to NULL in event_loop_args argument during loop creation.
+      This function includes an argument to limit the amount of time it runs, returning control to the caller when that time expires (or some time afterwards).
+      There is no guarantee that a call to this function will exit at exactly the time of expiry. There is also no guarantee that events have been dispatched during the call,
+      as the function might have spent all the allotted time waiting on the event queue. Once an event has been dequeued, however, it is guaranteed to be dispatched.
+      This guarantee contributes to not being able to exit exactly at time of expiry as (1) blocking on internal mutexes is necessary for dispatching the dequeued event,
+      and (2) during dispatch of the dequeued event there is no way to control the time occupied by handler code execution.
+      The guaranteed time of exit is therefore the allotted time + amount of time required to dispatch the last dequeued event.
+      In cases where waiting on the queue times out, ESP_OK is returned and not ESP_ERR_TIMEOUT, since it is normal behavior.
+
+  <6>
+  <7>
+
+
+*/
+```
+
+
 
