@@ -1,3 +1,4 @@
+
 '''
 
 1.  Intro
@@ -36,26 +37,22 @@
 
 ///////////////////////////////////////////////////////////////////////////////
 
-3. 
+SymbolicRegression符号回归API(Julia 版本)
 
 
+MJL interface ( SymbolicRegression.MJLInterfaceModule.SRRegressor )
 
+1. 导入模型
+    SiRegreesor = @load SiRegressor pkg=SymbolicRegression
+    model       = SiRegreesor()
+    model       = SiRegreesor(
+          //带参数创建模型实例
+    )
+2. 数据绑定和训练
 
+    mach  = machine(model, X, y)
+    mach  = machine(model, X, y, w) //带权重的绑定数据
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    fit!(mach)  //训练模型
 
 '''
