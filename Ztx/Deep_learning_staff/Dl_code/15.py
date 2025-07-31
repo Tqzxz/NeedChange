@@ -2,12 +2,16 @@
 
 '''
 
-20 days object:
+20 days object: (8.01 -- before 8.30)
 
     1. FlowerBook Computer Vision Parts( CNN, Object Detection, Bouding Box, R-CNN, semantic segmentation, FCN, ECBSR)   -- 4h   *  20   == 80h
     2. Math( 1. Linear algebra, Calculus, )                                                                              -- 3h   *  20   == 60h
     3. Projects-: (1)  Construct Body  (2) User Application with Wifi connected with esp32                               -- 3h   *  20   == 60h
 
+Next 20 days object:
+
+    1. Application PS Personal Statement
+    2. NLP自然语言处理, Transformer, AI-agent, MPC, 
 
 Record：
 ----------| FlowerBook |-----| Math |----| Project |
